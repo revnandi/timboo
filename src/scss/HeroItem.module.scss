@@ -1,0 +1,46 @@
+@import './variables.scss';
+
+.HeroItem {
+  display: flex;
+  height: 100%;
+  width: calc(100% - 14.4rem);
+  padding-left: 2.9rem;
+}
+
+.IdContainer {
+  min-height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 0.5rem;
+  border-right: 1px solid $color-light;
+}
+
+.Id {
+  padding-bottom: 0.5rem;
+  font-size: $text-lg;
+}
+
+.Inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.Description {
+  width: 100%;
+  padding: 0.5rem;
+  text-align: left;
+  font-size: $text-sm;
+  text-transform: uppercase;
+}
+
+.Title {
+  display: block;
+  width: 100%;
+  margin: auto 0 0.5rem 0.5rem;
+  font-size: $text-lg;
+  font-weight: 400;
+  text-transform: uppercase;
+  text-align: left;
+}

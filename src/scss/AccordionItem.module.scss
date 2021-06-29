@@ -1,0 +1,14 @@
+@import './variables.scss';
+
+.AccordionItem {
+  color: red;
+}
+
+.Title {
+  font-size: $text-lg;
+  font-weight: 400;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: rotate(180deg);
+    writing-mode: vertical-rl;
+}

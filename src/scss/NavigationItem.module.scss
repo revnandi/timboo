@@ -1,0 +1,23 @@
+@import './variables.scss';
+
+.NavigationItem {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 0.5rem 0 0.5rem;
+  color: red;
+  border-left: 1px solid $color-light;
+}
+
+.Title {
+  position: relative;
+  bottom: 1rem;
+  margin: 0;
+  font-size: $text-lg;
+  font-weight: 400;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: rotate(180deg);
+  writing-mode: vertical-rl;
+}
