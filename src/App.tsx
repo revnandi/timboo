@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 
+import About from './components/About';
 import Logo from './components/Logo';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -19,6 +20,9 @@ function App() {
       <main>
         <Section>
           <Projects></Projects>
+        </Section>
+        <Section>
+          <About></About>
         </Section>
       </main>
     </div>

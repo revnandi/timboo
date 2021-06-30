@@ -1,0 +1,11 @@
+@import './variables.scss';
+
+.About {
+  margin: 0;
+  border-top: 1px solid $color-light;
+  border-bottom: 1px solid $color-light;
+  padding: 0.75rem 0.25rem;
+  font-size: $text-md;
+  font-weight: 400;
+  text-align: left;
+}
