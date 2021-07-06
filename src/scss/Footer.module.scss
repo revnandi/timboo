@@ -7,17 +7,17 @@
 
 .Item {
   display: block;
-  padding: 0 0.5rem;
-  font-size: $text-lg;
-  font-weight: 400;
+  padding: 0.25rem 0.5rem;
   border-bottom: 1px solid $color-light;
 }
 
 .Title {
+  font-size: $text-lg;
   font-weight: 400;
   text-transform: uppercase;
 }
 
 .Address {
+  font-size: $text-lg;
   text-decoration: none;
 }
