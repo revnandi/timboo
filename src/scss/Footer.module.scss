@@ -1,0 +1,23 @@
+@import './variables.scss';
+
+.Footer {
+  width: 100%;
+  text-align: left;
+}
+
+.Item {
+  display: block;
+  padding: 0 0.5rem;
+  font-size: $text-lg;
+  font-weight: 400;
+  border-bottom: 1px solid $color-light;
+}
+
+.Title {
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.Address {
+  text-decoration: none;
+}

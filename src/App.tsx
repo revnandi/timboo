@@ -3,6 +3,7 @@ import './App.scss';
 
 import About from './components/About';
 import Logo from './components/Logo';
+import Footer from './components/Footer';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Navigation from './components/Navigation';
@@ -23,6 +24,9 @@ function App() {
         </Section>
         <Section>
           <About></About>
+        </Section>
+        <Section>
+          <Footer></Footer>
         </Section>
       </main>
     </div>
