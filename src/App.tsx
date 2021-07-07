@@ -9,6 +9,7 @@ import Hero from './components/Hero';
 import Navigation from './components/Navigation';
 import Projects from './components/Projects';
 import Section from './components/Section';
+import Staff from './components/Staff';
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
         </Section>
         <Section>
           <About></About>
+        </Section>
+        <Section>
+          <Staff></Staff>
         </Section>
         <Section>
           <Footer></Footer>
