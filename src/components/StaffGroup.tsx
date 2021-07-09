@@ -16,8 +16,8 @@ type StaffGroupProps = {
 // }
 
 function StaffGroup({ title, members }: StaffGroupProps) {
-  const membersData = members.map( (item ) => {
-    return <StaffGroupItem member={ item }></StaffGroupItem>
+  const membersData = members.map( (item, index ) => {
+    return <StaffGroupItem member={ item } key={index}></StaffGroupItem>
   });
 
   return <div className={ classes.Body }>

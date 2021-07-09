@@ -40,8 +40,8 @@ const staffData: Array<StaffGroupData> = [
 ]
 
 function Staff() {
-  const staffGroups = staffData.map( (item ) => {
-    return <StaffGroup title={ item.title } members={ item.members }></StaffGroup>
+  const staffGroups = staffData.map( (item, index ) => {
+    return <StaffGroup title={ item.title } members={ item.members } key={index}></StaffGroup>
   });
 
   return <div className={ classes.Staff }>
