@@ -1,12 +1,56 @@
-.Navigation {
+@import './mixins.scss';
+@import './variables.scss';
+
+.Container {
   z-index: 1;
   position: fixed;
-  right: 0;
   bottom: 0;
+  display: flex;
   height: 100%;
+  @include breakpoint(small) {
+    right: -12.22rem;
+  }
+  @include breakpoint(medium) {
+    right: 0;
+  }
+}
+
+.OpenContainer {
+  @include breakpoint(small) {
+    right: 0;
+  }
+  &:after {
+    @include breakpoint(small) {
+      content: '';
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      left: 0;
+      background: $color-dark;
+      z-index: -1;
+    }
+  }
+}
+
+.ButtonContainer {
+  border-left: 1px solid $color-light;
+  padding: 0 0.5rem 0 0.5rem;
+  @include breakpoint(small){
+    display: block;
+  }
+  @include breakpoint(medium){
+    display: none;
+  }
+}
+
+.List {
   display: flex;
   align-items: baseline;
-  list-style: none;
+  height: 100%;
   margin: 0;
   padding: 0;
+  list-style: none;
+  @include breakpoint(small) {
+    // display: none;
+  }
 }

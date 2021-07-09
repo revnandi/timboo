@@ -1,0 +1,55 @@
+@import './mixins.scss';
+@import './variables.scss';
+
+.Button {
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: none;
+  margin: 1rem 0.5rem 0.5rem 0.5rem;
+  background: transparent;
+  cursor: pointer;
+  & span {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 3px;
+    background: $color-light;
+    // transition: 0.3s ease;
+    &:before {
+      content: '';
+      position: absolute;
+      top: calc(-0.75rem + 1px);
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: $color-light;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: calc(0.75rem - 1px);
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: $color-light;
+    }
+  }
+}
+
+.OpenButton {
+  & span {
+    background: transparent;
+    &:before {
+      transform: rotate(45deg);
+      top: calc(25% - 1px);
+    }
+    &:after {
+      transform: rotate(-45deg);
+      top: calc(25% - 1px);
+    }
+  }
+}

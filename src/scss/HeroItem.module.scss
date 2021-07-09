@@ -1,10 +1,15 @@
+@import './mixins.scss';
 @import './variables.scss';
-
-.HeroItem {
+.Container {
   display: flex;
   height: 100%;
-  width: calc(100% - 14.4rem);
-  padding-left: 2.9rem;
+  padding-left: 3rem;
+  @include breakpoint(small){
+    width: calc(100% - 3.6rem);
+  }
+  @include breakpoint(medium){
+    width: calc(100% - 14.4rem);
+  }
 }
 
 .IdContainer {

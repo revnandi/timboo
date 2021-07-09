@@ -2,7 +2,7 @@ import React from 'react';
 import classes from '../scss/HeroItem.module.scss';
 
 function HeroItem() {
-  return <div className={ classes.HeroItem }>
+  return <div className={ classes.Container }>
     <div className={ classes.IdContainer } >
       <div className={ classes.Id }>01</div>
     </div>
