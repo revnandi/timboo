@@ -20,11 +20,11 @@ type ProjectsItemProps = {
 }
 
 function ProjectsItem({ item, index }: ProjectsItemProps) {
-  return <div className={ classes.ProjectsItem }>
+  return <li className={ classes.ProjectsItem }>
     <Image src={ item.image.src } lqip={ item.image.lqip } alt={ item.image.alt } width='640' height='435'/>
-    <h1 className={ classes.Title }>{ item.title }</h1>
+    <h2 className={ classes.Title }>{ item.title }</h2>
     <div className={ classes.Content }>{ item.content }</div>
-  </div>
+  </li>
 }
 
 export default ProjectsItem;

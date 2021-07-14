@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from '../scss/Staff.module.scss';
 import StaffGroup from './StaffGroup';
+import SeoTitle from './SeoTitle';
 
 type StaffGroupData = {
   title: string,
@@ -45,6 +46,9 @@ function Staff() {
   });
 
   return <div className={ classes.Staff }>
+    <SeoTitle>
+      <h1>The Team</h1>
+    </SeoTitle>
     { staffGroups }
   </div>
 }
