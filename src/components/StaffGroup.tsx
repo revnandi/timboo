@@ -2,28 +2,34 @@ import React from 'react';
 import classes from '../scss/StaffGroup.module.scss';
 import StaffGroupItem from './StaffGroupItem';
 
-type StaffGroupProps = {
-  title: String,
-  members: {
-    name: String,
-    content: String
-  }[]
+interface StaffMember {
+  title: string,
+  content: string,
+  featuredImage: {
+    lqip: {
+      src: string
+    },
+    medium: {
+      src: string
+    }
+  }
 }
 
-// type StaffGroupItemProps = {
-//   name: String,
-//   content: String
-// }
+type StaffGroupData = {
+  title: string,
+  staff: StaffMember[]
+}
 
-function StaffGroup({ title, members }: StaffGroupProps) {
-  const membersData = members.map( (item, index ) => {
-    return <StaffGroupItem member={ item } key={index}></StaffGroupItem>
+function StaffGroup({ title, staff }: StaffGroupData) {
+
+  const staffMembersData = staff.map( (item, index ) => {
+    return <StaffGroupItem title={ item.title } content={ item.content } featuredImage={ item.featuredImage } key={index}></StaffGroupItem>
   });
 
   return <div className={ classes.Body }>
     <h2 className={ classes.Title }>{ title }</h2>
     <ul className={ classes.List }>
-      { membersData }
+      { staffMembersData }
     </ul>
   </div>
 }

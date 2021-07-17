@@ -1,14 +1,67 @@
 @import './variables.scss';
 
-.AccordionItem {
-  color: red;
+.Container {
+  height: 100%;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.55;
+  }
 }
 
 .Title {
-  font-size: $text-lg;
+  font-size: $text-sm;
   font-weight: 400;
   text-transform: uppercase;
+  text-align: left;
   cursor: pointer;
-  transform: rotate(180deg);
-    writing-mode: vertical-rl;
+}
+
+.Inner {
+  display: flex;
+  // align-items: flex-end;
+  height: 100%;
+}
+
+.Input {
+  display: none;
+  &:checked + .TextContainer {
+    color: red;
+    max-width: unset;
+    
+  }
+}
+
+.TextContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: 0;
+  overflow: hidden;
+}
+
+.OpenedTextContainer {
+  max-width: unset;
+  padding: 0.5rem;
+}
+
+.Content {
+  display: none;
+  font-size: $text-md;
+  text-align: left;
+}
+
+.OpenedContent {
+  display: block;
+  margin-bottom: 8rem;
+}
+
+.NumberContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-right: 1px solid $color-light;
+  padding: 0.5rem;
+}
+
+.Number {
+  font-size: $text-md;
 }

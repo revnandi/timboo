@@ -1,9 +1,13 @@
+@import './mixins.scss';
 @import './variables.scss';
 
-.ProjectsItem {
+.Container {
   border-top: 1px solid $color-light;
   &:nth-child(odd) {
     border-right: 1px solid $color-light;
+    @include breakpoint(small) {
+      border-right: none;
+    }
   }
 }
 

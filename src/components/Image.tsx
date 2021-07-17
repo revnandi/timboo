@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import classes from '../scss/Image.module.scss';
 // eslint-disable-next-line
 import lazySizes from 'lazysizes';
@@ -12,10 +12,10 @@ type ImageProps = {
   height: string
 }
 
-function Image({ src, lqip, alt, width, height }: ImageProps) {
+const Image = React.forwardRef<HTMLImageElement, ImageProps>(({ src, lqip, alt, width, height }, ref) => {
   return <div className={ classes.Container }>
-    <img className={ [classes.Image, 'lazyload', 'blur-up' ].join(' ') } src={ lqip } data-src={ src } alt={ alt } width={ width } height={ height } />
+    <img ref={ref} className={ [classes.Image, 'lazyload', 'blur-up' ].join(' ') } src={ lqip } data-src={ src } alt={ alt } width={ width } height={ height } />
   </div>
-}
+});
 
 export default Image;

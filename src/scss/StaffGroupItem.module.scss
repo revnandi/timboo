@@ -1,19 +1,25 @@
+@import './mixins.scss';
 @import './variables.scss';
 
 .Body {
-  display: flex;
+  display: block;
   border-top: 1px solid $color-light;
+  @include breakpoint(small) {
+    flex-direction: column;
+  }
   & > div:first-child {
-    flex-basis: 14.5%;
+    width: 13%;
   }
   & > div:last-child {
-    flex-basis: 85.5%;
+    width: 87%;
   }
 }
 
 .InnerContainer {
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .Name {
@@ -27,6 +33,7 @@
 }
 
 .Content {
+  overflow-y: hidden;
   padding: 0.25rem 0.5rem;
   font-size: $text-sm;
   font-weight: 400;

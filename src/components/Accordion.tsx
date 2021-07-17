@@ -4,22 +4,21 @@ import classes from '../scss/Accordion.module.scss';
 
 const accordionData = [
   'Forest landscape restoration',
-  'About & services',
-  'Projects',
-  'Team',
-  'Contact'
+  'Test 2',
+  'Test 3',
+  'Test 4',
+  'Test 5'
 ]
 
-const accordionItems = accordionData.map((title, index)=> {
-  return <AccordionItem title={ title } index={ index } />
-})
+const Accordion: React.FC = () => {
 
-class Accordion extends React.Component {
-  render() {
-    return <ul className={ classes.Accordion }>
+    const accordionItems = accordionData.map((title, index) => {
+      return <AccordionItem title={ title } index={ index + 1 } key={ index } />
+    })
+
+    return <ul className={ classes.List }>
       { accordionItems }
     </ul>;
-  }
 }
 
 export default Accordion;

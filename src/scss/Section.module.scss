@@ -1,7 +1,7 @@
 @import './mixins.scss';
 
-.Section {
-  display: flex;
+.Container {
+  // display: flex;
   height: 100%;
   width: calc(100% - 12.2rem - 1px);
   padding-left: calc(3rem + 1px);

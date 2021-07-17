@@ -1,7 +1,12 @@
-.Accordion {
+@import './variables.scss';
+
+.List {
   display: flex;
+  justify-content: flex-end;
   align-items: baseline;
   list-style: none;
+  width: 100%;
   margin: 0;
   padding: 0;
+  border-bottom: 1px solid $color-light;
 }

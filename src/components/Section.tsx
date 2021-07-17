@@ -6,7 +6,7 @@ type Props = {
 };
 
 function Section({ children }: Props) {
-  return <section className={ classes.Section }>
+  return <section className={ classes.Container }>
     { children }
     </section>
 }
