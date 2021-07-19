@@ -1,20 +1,26 @@
+@import './mixins.scss';
+@import './variables.scss';
+
 .Container {
   display: block;
+}
 
+.SquareContainer {
   position: relative;
   object-fit: cover;
   display: inline-block;
   height: 0;
-  padding-bottom: 13%;
   vertical-align: top;
   filter: grayscale(1);
-}
-
-.Square {
-  object-fit: cover;
-  display: inline-block;
-  height: 0;
-  padding-bottom: 13%;
+  @include breakpoint(small) {
+    padding-bottom: 100%;
+  }
+  @include breakpoint(medium) {
+    padding-bottom: 25%;
+  }
+  @include breakpoint(large) {
+    padding-bottom: 13%;
+  }
 }
 
 .Image {
@@ -23,7 +29,9 @@
   height: auto;
   width: 100%;
   height: 100%;
+}
 
+.SquareImage {
   position: absolute;
   top: 0;
   left: 0;

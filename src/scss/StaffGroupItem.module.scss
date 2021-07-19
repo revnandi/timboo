@@ -6,16 +6,34 @@
   border-top: 1px solid $color-light;
   @include breakpoint(small) {
     flex-direction: column;
+    
   }
   & > div:first-child {
-    width: 13%;
+    @include breakpoint(small) {
+      width: 100%;
+    }
+    @include breakpoint(medium) {
+      width: 25%;
+    }
+    @include breakpoint(large) {
+      width: 13%;
+    }
   }
   & > div:last-child {
-    width: 87%;
+    @include breakpoint(small) {
+      width: 100%;
+    }
+    @include breakpoint(medium) {
+      width: 75%;
+    }
+    @include breakpoint(large) {
+      width: 87%;
+    }
   }
 }
 
 .InnerContainer {
+  position: relative;
   // display: flex;
   // flex-direction: column;
   display: inline-block;
@@ -39,4 +57,44 @@
   font-weight: 400;
   color: $color-light;
   text-align: left;
+}
+
+.Button {
+  cursor: pointer;
+  width: 100%;
+  height: calc(0.5rem + 1px);
+  position: absolute;
+  bottom: 0;
+  background: $color-dark;
+}
+
+.ButtonIcon {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  width: 1.375rem;
+  height: calc(0.5rem + 1px);
+  &::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    display: block;
+    width: 0.5rem;
+    height: 0.5rem;
+    transform: translateX(-50%) rotate(45deg);
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+  }
+}
+
+.FlippedButtonIcon {
+  &::after {
+    top: 0;
+    transform: translateX(-50%) rotate(-135deg);
+  }
 }
