@@ -1,3 +1,4 @@
+@import './mixins.scss';
 @import './variables.scss';
 
 .Container {
@@ -8,4 +9,10 @@
   font-size: $text-md;
   font-weight: 400;
   text-align: left;
+}
+
+.Inner {
+  @include breakpoint(small) {
+    font-size: $text-sm;
+  }
 }
