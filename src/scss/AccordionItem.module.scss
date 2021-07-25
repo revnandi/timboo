@@ -1,25 +1,56 @@
+@import './mixins.scss';
 @import './variables.scss';
 
 .Container {
-  height: 100%;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.55;
+  // height: 100%;
+  @include breakpoint(small) {
+    &:last-of-type {
+      & .Content {
+        border-bottom: none;
+      }
+      & .TextContainer {
+        border-bottom: none;
+      }
+    }
+  }
+  @include breakpoint(medium) {
+    min-height: 100%;
+    align-self: stretch;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.55;
+    }
+    &:last-of-type {
+      & .NumberContainer {
+        border-right: none;
+      }
+    }
   }
 }
 
 .Title {
-  font-size: $text-sm;
   font-weight: 400;
   text-transform: uppercase;
   text-align: left;
   cursor: pointer;
+  @include breakpoint(small) {
+    font-size: $text-md;
+    padding: 0.5rem;
+    border-top: 1px solid $color-light;
+    border-bottom: 1px solid $color-light;
+  }
+  @include breakpoint(medium) {
+    font-size: $text-sm;
+  }
 }
 
 .Inner {
   display: flex;
   // align-items: flex-end;
   height: 100%;
+  @include breakpoint(small) {
+    flex-direction: column;
+  }
 }
 
 .Input {
@@ -34,24 +65,47 @@
 .TextContainer {
   display: flex;
   flex-direction: column;
-  max-width: 0;
   overflow: hidden;
+  @include breakpoint(small) {
+    max-height: 0;
+    flex-direction: column-reverse;
+    border-bottom: 1px solid $color-light;
+  }
+  @include breakpoint(medium) {
+    max-width: 0;
+  }
 }
 
 .OpenedTextContainer {
-  max-width: unset;
-  padding: 0.5rem;
+  @include breakpoint(small) {
+    max-height: unset;
+    border-bottom: none;
+  }
+  @include breakpoint(medium) {
+    max-width: unset;
+    padding: 0.5rem;
+  }
 }
 
 .Content {
-  display: none;
-  font-size: $text-md;
   text-align: left;
+  @include breakpoint(small) {
+    display: block;
+    padding: 0.5rem;
+    border-bottom: 1px solid $color-light;
+    font-size: $text-sm;
+  }
+  @include breakpoint(medium) {
+    display: none;
+    font-size: $text-md;
+  }
 }
 
 .OpenedContent {
-  display: block;
-  margin-bottom: 8rem;
+  @include breakpoint(medium) {
+    display: block;
+    margin-bottom: 8rem;
+  }
 }
 
 .NumberContainer {
@@ -60,8 +114,17 @@
   justify-content: flex-end;
   border-right: 1px solid $color-light;
   padding: 0.5rem;
+  @include breakpoint(small) {
+    text-align: left;
+    border-right: none;
+  }
 }
 
 .Number {
-  font-size: $text-md;
+  @include breakpoint(small) {
+    font-size: $text-lg;
+  }
+  @include breakpoint(medium) {
+    font-size: $text-md;
+  }
 }

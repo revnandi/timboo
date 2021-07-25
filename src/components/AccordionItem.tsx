@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import classes from '../scss/AccordionItem.module.scss';
-import { addZeroToSingleDigits } from '../Helpers';
+import { addZeroToSingleDigits, createMarkup } from '../Helpers';
 
 type AccordionItemProps = {
   title: string,
+  content: string,
   index: number
 }
 
@@ -15,7 +16,7 @@ type AccordionItemProps = {
 //   console.log(isActive);
 // }
 
-function AccordionItem({ title, index }: AccordionItemProps){
+function AccordionItem({ title, content, index }: AccordionItemProps){
     const [isActive, setIsActive] = useState(false);
 
     return <li
@@ -28,8 +29,7 @@ function AccordionItem({ title, index }: AccordionItemProps){
             </div>
           </div>
           <div className={ [classes.TextContainer, isActive ? classes.OpenedTextContainer : ''].join(' ') }>
-            <div className={ [classes.Content, isActive ? classes.OpenedContent : ''].join(' ') }>
-            The SI Agroprocessing aims to support the Ethiopian government in mitigating the impact of the corona pandemic on the economy, for example by protecting jobs in the textile and agroprocessing sector. In that context, GIZ would support the production of 20,000 camp beds. These are to be used in local hospitals, health stations or newly established corona centers (e.g. Millennium Hall Addis) for the increased demand in times of corona pandemics. In the future, however, there will also be a large local sales market. 
+            <div className={ [classes.Content, isActive ? classes.OpenedContent : ''].join(' ') } dangerouslySetInnerHTML={ createMarkup(content) }>
             </div>
             <h2 className={ classes.Title }>{ title }</h2>
           </div>

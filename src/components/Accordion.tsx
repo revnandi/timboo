@@ -1,24 +1,52 @@
 import React from 'react';
 import AccordionItem from './AccordionItem';
 import classes from '../scss/Accordion.module.scss';
+import Loader from './Loader';
 
-const accordionData = [
-  'Forest landscape restoration',
-  'Test 2',
-  'Test 3',
-  'Test 4',
-  'Test 5'
-]
+import { useQuery, gql } from "@apollo/client";
+
+const GET_SERVICES = gql`
+  query GetServices {
+    services(where: {orderby: {field: DATE, order: ASC}}) {
+      nodes {
+        id
+        title
+        content
+      }
+    }
+  }
+`;
+
+type AccordionItemProps = {
+  id: string
+  title: string,
+  content: string,
+}
 
 const Accordion: React.FC = () => {
 
-    const accordionItems = accordionData.map((title, index) => {
-      return <AccordionItem title={ title } index={ index + 1 } key={ index } />
-    })
+  const { loading, error, data } = useQuery(GET_SERVICES);
 
-    return <ul className={ classes.List }>
-      { accordionItems }
-    </ul>;
+  if (loading) return <Loader/>;
+  if (error) return <p>Error :(</p>;
+
+  console.log(data.services.nodes);
+
+  const accordionItemsData = data.services.nodes.map((item : any) => {
+    return {
+      id: item.id,
+      title: item.title,
+      content: item.content
+    }
+  });
+
+  const accordionItems = accordionItemsData.map(({ id, title, content } : AccordionItemProps, index : number) => {
+    return <AccordionItem title={ title } content={ content } index={ index + 1 } key={ id } />
+  })
+
+  return <ul className={ classes.List }>
+    { accordionItems }
+  </ul>;
 }
 
 export default Accordion;
