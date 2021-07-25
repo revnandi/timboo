@@ -7,7 +7,7 @@ import Loader from './Loader';
 import { useQuery, gql } from "@apollo/client";
 
 const GET_STAFF = gql`
-  query GetProjects {
+  query GetStaff {
     staffTypes {
     nodes {
       name
@@ -58,28 +58,16 @@ function Staff() {
 
   console.log(data.staffTypes.nodes);
 
-  const staffGroups = data.staffTypes.nodes.map((item : any) => {
+  const staffGroupsData = data.staffTypes.nodes.map((item : any) => {
     return {
       title: item.name,
       staff: item.staff.nodes
     }
   });
 
-  console.log(staffGroups);
+  console.log(staffGroupsData);
 
-  // const formattedResponse = data.projects.edges.map( (item : any) => {
-  //   return {
-  //     title: item.node.title,
-  //     content: item.node.content,
-  //     image: {
-  //       src: '../images/proj4.jpg',
-  //       lqip: '../images/proj4_lqip.jpg',
-  //       alt: 'image placeholder'
-  //     }
-  //   }
-  // });
-
-  const staffGroupsData = staffGroups.map( (item : StaffGroupData , index : number ) => {
+  const staffGroups = staffGroupsData.map( (item : StaffGroupData , index : number ) => {
     return <StaffGroup title={ item.title } staff={ item.staff } key={ index }></StaffGroup>
   });
 
@@ -87,7 +75,7 @@ function Staff() {
     <SeoTitle>
       <h1>The Team</h1>
     </SeoTitle>
-    { staffGroupsData }
+    { staffGroups }
   </div>
 }
 

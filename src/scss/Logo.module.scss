@@ -1,3 +1,4 @@
+@import './mixins.scss';
 @import './variables.scss';
 
 .Container {
@@ -15,6 +16,9 @@
   cursor: pointer;
   transform: rotate(180deg);
   writing-mode: vertical-rl;
+  @include browser(safari) {
+    padding: 0 0 0 0.5rem;
+  }
 }
 
 .Text {

@@ -48,6 +48,9 @@
   color: $color-light;
   text-align: left;
   text-transform: uppercase;
+  @include breakpoint(small) {
+    border-top: 1px solid $color-light;
+  }
 }
 
 .Content {
@@ -57,6 +60,9 @@
   font-weight: 400;
   color: $color-light;
   text-align: left;
+  @include breakpoint(small) {
+    max-height: unset!important;
+  }
 }
 
 .Button {
@@ -66,6 +72,9 @@
   position: absolute;
   bottom: 0;
   background: $color-dark;
+  @include breakpoint(small) {
+    display: none;
+  }
 }
 
 .ButtonIcon {

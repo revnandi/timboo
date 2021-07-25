@@ -10,5 +10,6 @@
   padding: 0;
   @include breakpoint(small) {
     grid-template-columns: 1fr;
+    grid-auto-rows: unset;
   }
 }
