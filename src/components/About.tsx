@@ -24,7 +24,7 @@ const About = () => {
 
   const content = data.pageBy.content;
 
-  return <div className={ classes.Container }>
+  return <div className={ classes.Container } id='timboo_about'>
     <SeoTitle>
       <h1>About & Services</h1>
     </SeoTitle>

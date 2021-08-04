@@ -1,0 +1,55 @@
+.Container {
+  display: block;
+  padding-bottom: unset;
+}
+
+.Swiper {
+  width: 100%;
+}
+
+.Slide {
+  // width: 100%!important;
+}
+.Nav {
+  cursor: pointer;
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  opacity: 0;
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  &::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+  }
+}
+
+.Prev {
+  left: 0.5rem;
+  &::after {
+    transform: translateX(-50%) rotate(135deg);
+  }
+}
+
+.Next {
+  right: 0.5rem;
+  &::after {
+    transform: translateX(-50%) rotate(315deg);
+  }
+}
+
+.NavVisible {
+  opacity: 1;
+  display: flex;
+}

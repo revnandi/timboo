@@ -8,14 +8,25 @@ type ImageProps = {
   src?: string
   lqip?: string,
   alt?: string,
-  width: string,
-  height: string,
-  squared?: boolean
+  width?: string,
+  height?: string,
+  squared?: boolean,
+  fitted?: boolean,
+  srcSet?: string
 }
 
-const Image = React.forwardRef<HTMLImageElement, ImageProps>(({ src, lqip, alt, width, height, squared }, ref) => {
-  return <div className={ [classes.Container, squared ? classes.SquareContainer : ''].join(' ') }>
-    <img ref={ref} className={ [classes.Image, 'lazyload', 'blur-up', (squared ? classes.SquareImage : '') ].join(' ') } src={ lqip } data-src={ src } alt={ alt } width={ width } height={ height }/>
+const Image = React.forwardRef<HTMLImageElement, ImageProps>(({ src, lqip, alt, width, height, squared, fitted, srcSet }, ref) => {
+  return <div className={ [classes.Container, squared ? classes.SquareContainer : '', fitted ? classes.FittedContainer : ''].join(' ') }>
+    <img
+      ref={ref}
+      className={ [classes.Image, 'lazyload', 'blur-up', ((fitted || squared) ? classes.FittedImage : '') ].join(' ') }
+      src={ lqip }
+      data-src={ src }
+      data-srcset={ srcSet }
+      alt={ alt }
+      width={ width }
+      height={ height }
+    />
   </div>
 });
 

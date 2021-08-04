@@ -6,7 +6,7 @@ type Props = {
 }
 
 function Header(props: Props) {
-  return <header className={ classes.Header }>
+  return <header className={ classes.Container } id='timboo_header'>
     {props.children}
   </header>
 }

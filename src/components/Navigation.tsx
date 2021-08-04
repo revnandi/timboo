@@ -2,26 +2,42 @@ import React, { useState } from 'react';
 import classes from '../scss/Navigation.module.scss';
 import NavigationItem from './NavigationItem';
 import NavigationButton from './NavigationButton';
+import { link } from 'fs';
 
-function Navigation () {
+interface navigationItemProps {
+  title: string,
+  link: string
+}
+
+const Navigation = () => {
 
   const navigationData = [
-    // 'Forest landscape restoration',
-    'About & services',
-    'Projects',
-    'Team',
-    'Contact'
+    {
+      title: 'About & services',
+      link: 'about'
+    },
+    {
+      title: 'Projects',
+      link: 'projects'
+    },
+    {
+      title: 'Team',
+      link: 'staff'
+    },
+    {
+      title: 'Contact',
+      link: 'contact'
+    }
   ]
 
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
-    console.log('fdf')
     setIsOpen(!isOpen);
   }
 
-  const navigationItems = navigationData.map((title, index)=> {
-    return <NavigationItem title={ title } index={ index } key={ index }/>
+  const navigationItems = navigationData.map(({ title, link }: navigationItemProps, index : number)=> {
+    return <NavigationItem title={ title } link={ link } index={ index } key={ index } onClick={ handleClick }/>
   })
 
   return <div className={ [classes.Container, isOpen ? classes.OpenContainer : ''].join(' ') }>

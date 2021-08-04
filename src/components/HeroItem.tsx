@@ -14,8 +14,6 @@ function HeroItem({ index, title, content }: Props) {
       <div className={ classes.Id }>{ addZeroToSingleDigits(index) }</div>
     </div>
     <div className={ classes.Inner } >
-      <div className={ classes.Description } dangerouslySetInnerHTML={ createMarkup(content) }>
-      </div>
       <h2 className={ classes.Title }>{ title }</h2>
     </div>
   </div>

@@ -19,6 +19,12 @@
   @include browser(safari) {
     padding: 0 0 0 0.5rem;
   }
+  @include breakpoint(small) {
+    // padding: 0 0 0 0.5rem;
+    width: 3rem;
+    padding: unset;
+    align-items: center;
+  }
 }
 
 .Text {

@@ -23,6 +23,15 @@
   }
 }
 
+.FittedContainer {
+  position: relative;
+  object-fit: cover;
+  display: block;
+  height: 0;
+  vertical-align: top;
+  padding-bottom: 68%;
+}
+
 .Image {
   display: block;
   max-width: 100%;
@@ -31,7 +40,7 @@
   height: 100%;
 }
 
-.SquareImage {
+.FittedImage {
   position: absolute;
   top: 0;
   left: 0;

@@ -28,13 +28,11 @@ function App() {
         </Header>
         <main>
           <Section>
-            <Projects></Projects>
-          </Section>
-          <Section>
             <About></About>
             <Accordion></Accordion>
           </Section>
           <Section>
+            <Projects></Projects>
           </Section>
           <Section>
             <Staff></Staff>

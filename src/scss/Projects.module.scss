@@ -8,6 +8,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  border-bottom: 1px solid $color-light;
   @include breakpoint(small) {
     grid-template-columns: 1fr;
     grid-auto-rows: unset;

@@ -1,14 +1,19 @@
 import React from 'react';
 import classes from '../scss/NavigationItem.module.scss';
+import { Link } from 'react-scroll'
 
 type NavigationItemProps = {
   title: string,
-  index: number
+  link: string,
+  index: number,
+  onClick: () => void;
 }
 
-function NavigationItem({ title, index }: NavigationItemProps){
+const NavigationItem : React.FC<NavigationItemProps> = ({ title, link, onClick, index, }: NavigationItemProps) => {
     return <li className={ classes.NavigationItem }>
-      <h2 className={ classes.Title }>{ title }</h2>
+      <Link className={ classes.Link } to={ 'timboo_' + link } smooth={true}>
+        <h2 className={ classes.Title } onClick={ onClick }>{ title }</h2>
+      </Link>
     </li>;
 }
 

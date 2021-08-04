@@ -8,26 +8,26 @@ import { useQuery, gql } from "@apollo/client";
 
 const GET_STAFF = gql`
   query GetStaff {
-    staffTypes {
-    nodes {
-      name
-      slug
-      staff {
-        nodes {
-          title
-          content(format: RENDERED)
-          featuredImage {
-            lqip: node {
-              src: sourceUrl(size: LQIP)
-            }
-            medium: node {
-              src: sourceUrl(size: MEDIUM)
+    staffTypes(where: {order: ASC, orderby: COUNT}) {
+      nodes {
+        name
+        slug
+        staff(where: {orderby: {field: DATE, order: ASC}}) {
+          nodes {
+            title
+            content(format: RENDERED)
+            featuredImage {
+              lqip: node {
+                src: sourceUrl(size: LQIP)
+              }
+                medium: node {
+                  src: sourceUrl(size: MEDIUM)
+                }
             }
           }
         }
       }
     }
-  }
   }
 `;
 
@@ -56,7 +56,7 @@ function Staff() {
   if (loading) return <Loader/>;
   if (error) return <p>Error :(</p>;
 
-  console.log(data.staffTypes.nodes);
+  // console.log(data.staffTypes.nodes);
 
   const staffGroupsData = data.staffTypes.nodes.map((item : any) => {
     return {
@@ -65,13 +65,13 @@ function Staff() {
     }
   });
 
-  console.log(staffGroupsData);
+  // console.log(staffGroupsData);
 
   const staffGroups = staffGroupsData.map( (item : StaffGroupData , index : number ) => {
     return <StaffGroup title={ item.title } staff={ item.staff } key={ index }></StaffGroup>
   });
 
-  return <div className={ classes.Staff }>
+  return <div className={ classes.Staff } id='timboo_staff'>
     <SeoTitle>
       <h1>The Team</h1>
     </SeoTitle>

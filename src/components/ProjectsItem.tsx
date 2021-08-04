@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from '../scss/ProjectsItem.module.scss';
 import Image from '../components/Image';
+import ProjectsSwiper from './ProjectsSwiper';
 
 import { createMarkup } from '../Helpers';
 
@@ -13,7 +14,8 @@ interface ImageObject {
 interface ProjectObject {
   title: string
   content: string
-  image: ImageObject
+  image: ImageObject,
+  gallery: object[] | null
 }
 
 type ProjectsItemProps = {
@@ -21,9 +23,14 @@ type ProjectsItemProps = {
   index: number
 }
 
-function ProjectsItem({ item, index }: ProjectsItemProps) {
-  return <li className={ classes.Container }>
-    <Image src={ item.image.src } lqip={ item.image.lqip } alt={ item.image.alt } width='640' height='435'/>
+const ProjectsItem = ({ item, index }: ProjectsItemProps) => {
+  return <li className={ classes.Container } key={ index }>
+    { item.gallery != null && 
+      <ProjectsSwiper gallery={ item.gallery }></ProjectsSwiper>
+    }
+    { item.gallery === null &&
+      <Image src={ item.image.src } lqip={ item.image.lqip } alt={ item.image.alt } width='640' height='435' fitted={ true }/>
+    }
     <h2 className={ classes.Title }>{ item.title }</h2>
     <div className={ classes.Content } dangerouslySetInnerHTML={ createMarkup(item.content) }></div>
   </li>

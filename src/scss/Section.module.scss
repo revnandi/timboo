@@ -4,9 +4,9 @@
   // display: flex;
   height: 100%;
   width: calc(100% - 12.2rem - 1px);
-  padding-left: calc(3rem + 1px);
+  padding-left: 3rem;
   @include breakpoint(small) {
-    width: calc(100% - 3.5rem - 1px);
+    width: calc(100% - 3rem);
   }
   @include breakpoint(medium) {
     width: calc(100% - 12.2rem - 1px);

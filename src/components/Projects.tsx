@@ -8,25 +8,23 @@ import { useQuery, gql } from "@apollo/client";
 
 const GET_PROJECTS = gql`
   query GetProjects {
-    projects {
+    projects(where: {orderby: {field: DATE, order: ASC}}) {
       edges {
         node {
           title
           content
           featuredImage {
-            node {
-              id
-              mediaDetails {
-                sizes {
-                  name
-                  sourceUrl
-                  fileSize
-                  height
-                  width
-                }
-                height
-                width
-              }
+            lqip: node {
+              src: sourceUrl(size: LQIP)
+            }
+            medium: node {
+              src: sourceUrl(size: MEDIUM_LARGE)
+            }
+          }
+          gallery: acf {
+            items: gallery {
+              lqip: sourceUrl(size: LQIP)
+              srcSet(size: MEDIUM)
             }
           }
         }
@@ -35,30 +33,42 @@ const GET_PROJECTS = gql`
   }
 `;
 
-function Projects() {
+interface ProjectsData {
+  title: string,
+  content: string,
+  image: {
+    src: string,
+    lqip: string,
+    alt: string
+  },
+  gallery: object[]
+}
+
+const Projects = () => {
 
   const { loading, error, data } = useQuery(GET_PROJECTS);
 
   if (loading) return <Loader/>;
   if (error) return <p>Error :(</p>;
 
-  console.log(data.projects.edges);
+  // console.log(data.projects.edges);
 
-  const formattedResponse = data.projects.edges.map( (item : any) => {
+  const formattedResponse = data.projects.edges.map((item : any) => {
     return {
       title: item.node.title,
       content: item.node.content,
       image: {
-        src: '../images/proj4.jpg',
-        lqip: '../images/proj4_lqip.jpg',
+        src: item.node.featuredImage.medium.src,
+        lqip: item.node.featuredImage.lqip.src,
         alt: 'image placeholder'
-      }
+      },
+      gallery: item.node.gallery.items
     }
   });
 
-  console.log(formattedResponse);
+  // console.log(formattedResponse);
 
-  const projectItems = formattedResponse.map((item : any, index : number) => {
+  const projectItems = formattedResponse.map((item : ProjectsData, index : number) => {
     return <ProjectsItem item={ item } index={ index } key={ index }></ProjectsItem>
   });
 
@@ -66,7 +76,7 @@ function Projects() {
     <SeoTitle>
       <h1>Projects</h1>
     </SeoTitle>
-    <ul className={ classes.Container }>
+    <ul className={ classes.Container } id='timboo_projects'>
     { projectItems }
     </ul>
   </React.Fragment>

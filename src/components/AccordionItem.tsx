@@ -5,7 +5,9 @@ import { addZeroToSingleDigits, createMarkup } from '../Helpers';
 type AccordionItemProps = {
   title: string,
   content: string,
-  index: number
+  activeIndex: number,
+  index: number,
+  handleClick: (index: number) => void
 }
 
 // let isActive: boolean = true;
@@ -16,25 +18,24 @@ type AccordionItemProps = {
 //   console.log(isActive);
 // }
 
-function AccordionItem({ title, content, index }: AccordionItemProps){
-    const [isActive, setIsActive] = useState(false);
+const AccordionItem = ({ title, content, activeIndex, handleClick, index }: AccordionItemProps) => {
 
-    return <li
-      className={ classes.Container }
-      onClick={ () => setIsActive(!isActive) }>
-        <div className={ classes.Inner }>
-          <div className={ classes.NumberContainer }>
-            <div className={ classes.Number }>
-            { addZeroToSingleDigits(index) }
-            </div>
-          </div>
-          <div className={ [classes.TextContainer, isActive ? classes.OpenedTextContainer : ''].join(' ') }>
-            <div className={ [classes.Content, isActive ? classes.OpenedContent : ''].join(' ') } dangerouslySetInnerHTML={ createMarkup(content) }>
-            </div>
-            <h2 className={ classes.Title }>{ title }</h2>
+  return <li
+    className={ classes.Container }
+    onClick={ () => handleClick(index) }>
+      <div className={ classes.Inner }>
+        <div className={ [classes.NumberContainer, (activeIndex === index) ? classes.OpenedNumberContainer : ''].join(' ') }>
+          <div className={ classes.Number }>
+          { addZeroToSingleDigits(index) }
           </div>
         </div>
-      </li>;
-}
+        <div className={ [classes.TextContainer, (activeIndex === index) ? classes.OpenedTextContainer : ''].join(' ') }>
+          <div className={ [classes.Content, (activeIndex === index) ? classes.OpenedContent : ''].join(' ') } dangerouslySetInnerHTML={ createMarkup(content) }>
+          </div>
+          <h2 className={ classes.Title }>{ title }</h2>
+        </div>
+      </div>
+    </li>;
+};
 
 export default AccordionItem;

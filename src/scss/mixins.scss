@@ -27,22 +27,22 @@
 @mixin browser($name) {
   @if $name == safari {
 
-    /* Safari 11+ */
+    // /* Safari 11+ */
     @media not all and (min-resolution:.001dpcm)
     { @supports (-webkit-appearance:none) and (stroke-color:transparent) {
       @content;
     }}
 
-    /* Safari 10.1 */
-    @media not all and (min-resolution:.001dpcm){ 
-    @supports (-webkit-appearance:none) and (not (stroke-color:transparent)) {
-      @content;
-    }}
+    // /* Safari 10.1 */
+    // @media not all and (min-resolution:.001dpcm){ 
+    // @supports (-webkit-appearance:none) and (not (stroke-color:transparent)) {
+    //   @content;
+    // }}
 
-    /* Safari 6.1-10.0 (not 10.1) */
-    @media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0){
-      @content;
-    }
+    /* Safari 6.1-10.0 (but not 10.1) */
+        // @media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0){ 
+        //   @content;
+        // }}
 
   }
 }

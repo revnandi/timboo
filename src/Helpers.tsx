@@ -1,4 +1,4 @@
-export function addZeroToSingleDigits(num: number) {
+export function addZeroToSingleDigits(num: number): string {
   return num.toString().padStart(2, '0');
 }
 
