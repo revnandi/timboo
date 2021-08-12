@@ -7,8 +7,10 @@
   align-items: baseline;
   list-style: none;
   width: 100%;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
+  border-bottom: 1px solid $color-light;
   @include breakpoint(small) {
     flex-direction: column;
   }

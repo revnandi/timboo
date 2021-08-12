@@ -29,10 +29,12 @@ function App() {
         <main>
           <Section>
             <About></About>
-            <Accordion></Accordion>
           </Section>
           <Section>
             <Projects></Projects>
+          </Section>
+          <Section>
+            <Accordion></Accordion>
           </Section>
           <Section>
             <Staff></Staff>
