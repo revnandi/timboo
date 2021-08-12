@@ -9,6 +9,6 @@
     width: calc(100% - 3rem);
   }
   @include breakpoint(medium) {
-    width: calc(100% - 12.2rem - 1px);
+    width: calc(100% - 12.2rem);
   }
 }
