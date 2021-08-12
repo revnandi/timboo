@@ -37,9 +37,9 @@ interface ProjectsData {
   title: string,
   content: string,
   image: {
-    src: string,
-    lqip: string,
-    alt: string
+    src?: string,
+    lqip?: string,
+    alt?: string
   },
   gallery: object[]
 }
@@ -58,8 +58,8 @@ const Projects = () => {
       title: item.node.title,
       content: item.node.content,
       image: {
-        src: item.node.featuredImage.medium.src,
-        lqip: item.node.featuredImage.lqip.src,
+        src: item.node.featuredImage && item.node.featuredImage.medium ? item.node.featuredImage.medium.src : '',
+        lqip: item.node.featuredImage && item.node.featuredImage.lqip ? item.node.featuredImage.lqip.src : '',
         alt: 'image placeholder'
       },
       gallery: item.node.gallery.items
@@ -73,9 +73,7 @@ const Projects = () => {
   });
 
   return <React.Fragment>
-    <SeoTitle>
-      <h1>Projects</h1>
-    </SeoTitle>
+    <h1 className={ classes.Title }>Projects</h1>
     <ul className={ classes.Container } id='timboo_projects'>
     { projectItems }
     </ul>

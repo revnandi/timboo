@@ -1,3 +1,5 @@
+@import './mixins.scss';
+
 .Container {
   display: block;
   padding-bottom: unset;
@@ -20,8 +22,10 @@
   align-items: center;
   width: 2rem;
   height: 2rem;
-  opacity: 0;
   transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  @include breakpoint(medium) {
+    opacity: 0;
+  }
   &::after {
     content: "";
     box-sizing: border-box;
