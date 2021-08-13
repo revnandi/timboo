@@ -12,16 +12,34 @@ const GET_SERVICES = gql`
         id
         title
         content
+        featuredImage {
+          lqip: node {
+            src: sourceUrl(size: LQIP)
+          }
+          medium: node {
+            src: sourceUrl(size: MEDIUM_LARGE)
+          }
+        }
       }
     }
   }
 `;
 
-type AccordionItemProps = {
+export interface AccordionItemProps {
   id: string
   title: string,
   content: string,
-  activeIndex: number
+  activeIndex: number,
+  featuredImage?: {
+    lqip: {
+      src: string
+    }
+    medium: {
+      src: string
+    }
+  },
+  index: number,
+  handleClick: (index: number) => void
 }
 
 const Accordion : React.FC = () => {
@@ -33,28 +51,24 @@ const Accordion : React.FC = () => {
   if (loading) return <Loader/>;
   if (error) return <p>Error :(</p>;
 
-  // console.log(data.services.nodes);
-
-  const accordionItemsData = data.services.nodes.map((item : AccordionItemProps) => {
-    return {
-      id: item.id,
-      title: item.title,
-      content: item.content
-    }
-  });
+  const accordionData = data.services.nodes;
+  console.log(accordionData);
 
   const handleClick = (index : number) : void => {
     setSelectedIndex(index);
     return;
   };
 
-  const accordionItems = accordionItemsData.map(({ id, title, content } : AccordionItemProps, index : number) => {
-    return <AccordionItem title={ title } content={ content } index={ index + 1 } key={ id } activeIndex={ selectedIndex } handleClick={ handleClick }/>
+  const accordionItems = accordionData.map(({ id, title, content, featuredImage } : AccordionItemProps, index : number) => {
+    return <AccordionItem id={ id } title={ title } content={ content } featuredImage={ featuredImage } index={ index + 1 } key={ id } activeIndex={ selectedIndex } handleClick={ handleClick }/>
   })
 
-  return <ul className={ classes.List }>
-    { accordionItems }
-  </ul>;
+  return <div className={ classes.Container }>
+    <h1 className={ classes.Title }>Services</h1>
+    <ul className={ classes.List }>
+      { accordionItems }
+    </ul>
+  </div>;
 }
 
 export default Accordion;

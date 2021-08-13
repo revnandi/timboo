@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import classes from '../scss/Hero.module.scss';
 import HeroItem from './HeroItem';
+import Image from './Image';
 import Video from './Video';
 import Loader from './Loader';
 import { useQuery, gql } from "@apollo/client";
@@ -23,14 +24,10 @@ const GET_CAROUSEL = gql`
             fieldGroupName
             gallery {
               id
-              mediaDetails {
-                sizes {
-                  sourceUrl
-                  name
-                }
-              }
               mimeType
               mediaItemUrl
+              lqip: sourceUrl(size: LQIP)
+              src: sourceUrl(size: LARGE)
             }
             title
             content
@@ -44,6 +41,8 @@ const GET_CAROUSEL = gql`
 const Hero = () => {
 
   const swiperRef : any = useRef(null);
+  const subSwiperRef : any = useRef(null);
+  const [subSwiperRefs, setSubSwiperRefs] = useState<Array<unknown>>([]);
   const [swiperInstance, setSwiperInstance] = useState<any>(null);
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
 
@@ -58,20 +57,38 @@ const Hero = () => {
   if (loading) return <Loader/>;
   if (error) return <p>Error :(</p>;
 
-  // console.log(data.themeGeneralSettings.hero.carousel.item);
+  console.log(data.themeGeneralSettings.hero.carousel.item);
 
   const formattedResponse : Array<object> = data.themeGeneralSettings.hero.carousel.item.map((item : any) => {
+
     return {
       title: item.title,
       content: item.content,
-      videoSrc: item.gallery.find((item: any) => item.mimeType === 'video/mp4').mediaItemUrl,
+      gallery: item.gallery
     };
   });
 
   // console.log(formattedResponse);
 
-  const handleEvent = (index : number, player : any) : void => {
-    console.log(`${player.player.player.props.url} is playing at ${player.getCurrentTime()}`);
+  const numberOfSlides = (): number => {
+    return swiperRef.current.slides.length;
+  }
+
+  const initLoop = (): void => {
+    setInterval(() => {
+      // console.log(`number of slides: ${numberOfSlides()}`);
+      swiperRef.current.slideNext();
+      // console.log(`active slide index: ${swiperRef.current.activeIndex}`);
+      // console.log(swiperRef.current.activeIndex === numberOfSlides());
+      if(swiperRef.current.activeIndex === numberOfSlides()) {
+        // console.log(swiperRef.current.activeIndex);
+        swiperRef.current.slideTo(1);
+      }
+    }, 4000);
+  }
+
+  const handleEvent = (index: number, player: any): void => {
+    // console.log(`${player.player.player.props.url} is playing at ${player.getCurrentTime()}`);
     // console.log(`index: ${index}`)
     // console.log(`activeSlideIndex: ${activeSlideIndex}`);
     if (index === activeSlideIndex) {
@@ -79,22 +96,47 @@ const Hero = () => {
       // console.log(`index: ${index}`)
       // console.log(`activeSlideIndex: ${activeSlideIndex}`);
       // console.log('slideNext()');
-      swiperRef.current.slideNext();
+      // console.log(player);
+      // swiperRef.current.slideNext();
       // console.log(`set state activeSlideIndex to ${swiperRef.current.activeIndex}`);
-      setActiveSlideIndex(swiperRef.current.activeIndex);
+      // setActiveSlideIndex(swiperRef.current.activeIndex);
     }
     player.seekTo(0);
     // console.log(`${player.player.player.props.url} is playing at ${player.getCurrentTime()}`);
   };
 
-  const slides = formattedResponse.map((item : any, index : number) => {
+  const slides = formattedResponse.map((item: any, index: number) => {
 
-    // console.log(swiperRef);
-    // console.log(swiperInstance);
+    const galleryItems = item.gallery.map((item: any, index: number) => {
+
+      return <SwiperSlide className={ [classes.Slide, classes.SubSlide].join(' ') } key={ index }>
+        { item.mimeType === 'video/mp4' &&
+          <Video src={ item.mediaItemUrl } passedEvent={ handleEvent } currentIndex={ activeSlideIndex } index={ index }></Video>
+        }
+        { (item.mimeType === 'image/jpeg' || item.mimeType === 'image/png' || item.mimeType === 'image/jpg') &&
+          // <img src={ item.mediaItemUrl } alt="" />
+          <Image src={ item.mediaItemUrl } lqip={ item.lqip } alt={ item.altText } hero/>
+        }
+      </SwiperSlide>
+    });
 
     return <SwiperSlide className={ classes.Slide } key={ index }>
       <HeroItem title={ item.title } content={ item.content } index={ index + 1 }></HeroItem>
-      <Video src={ item.videoSrc } passedEvent={ handleEvent } currentIndex={ activeSlideIndex } index={ index }></Video>
+      {/* <Video src={ item.videoSrc } passedEvent={ handleEvent } currentIndex={ activeSlideIndex } index={ index }></Video> */}
+      <Swiper
+        className={ classes.SubSwiper }
+        slidesPerView={1}
+        allowTouchMove={ false }
+        effect='fade'
+        fadeEffect= {{
+          crossFade: true
+        }}
+        onSwiper={(swiper) => {
+          console.log(swiper);
+          // setSubSwiperRefs.current[0]
+        }}>
+        { galleryItems }
+      </Swiper>
     </SwiperSlide>
   });
 
@@ -103,6 +145,7 @@ const Hero = () => {
     <Swiper
       className={ classes.Swiper }
       slidesPerView={1}
+      allowTouchMove={ false }
       effect='fade'
       fadeEffect= {{
         crossFade: true
@@ -112,9 +155,10 @@ const Hero = () => {
       onSwiper={(swiper) => {
         swiperRef.current = swiper
         setSwiperInstance(swiper);
-        console.log(swiper)
+        // console.log(swiper);
         setActiveSlideIndex(swiper.activeIndex);
-        console.log(swiper.slides.length)
+        // console.log(swiper.slides.length);
+        initLoop();
       }}
     >
       { slides }

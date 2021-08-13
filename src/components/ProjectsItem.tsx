@@ -4,39 +4,26 @@ import Image from '../components/Image';
 import Placeholder from './Placeholder';
 import ProjectsSwiper from './ProjectsSwiper';
 
+import { ProjectItemProps } from './Projects';
+
 import { createMarkup } from '../Helpers';
 
-interface ImageObject {
-  src?: string,
-  lqip?: string,
-  alt?: string
-}
+const ProjectsItem = ({ text, media }: ProjectItemProps, index: number) => {
 
-interface ProjectObject {
-  title: string
-  content: string
-  image: ImageObject,
-  gallery: object[] | null
-}
+  console.log(media)
 
-type ProjectsItemProps = {
-  item: ProjectObject
-  index: number
-}
-
-const ProjectsItem = ({ item, index }: ProjectsItemProps) => {
   return <li className={ classes.Container } key={ index }>
-    { item.gallery != null && 
-      <ProjectsSwiper gallery={ item.gallery }></ProjectsSwiper>
+    { media.gallery && media.gallery.items !== null && 
+      <ProjectsSwiper gallery={ media.gallery.items }></ProjectsSwiper>
     }
-    { item.gallery === null && item.image.src !== '' &&
-      <Image src={ item.image.src } lqip={ item.image.lqip } alt={ item.image.alt } width='640' height='435' fitted={ true }/>
+    { media.gallery.items === null && media.featuredImage && media.featuredImage.medium.src !== '' &&
+      <Image src={ media.featuredImage ? media.featuredImage.medium.src : ''} lqip={ media.featuredImage.lqip.src } alt={ media.featuredImage.alt ? media.featuredImage.alt : ''} width='640' height='435' fitted={ true }/>
     }
-    { item.gallery === null && item.image.src === '' &&
+    { media.gallery.items === null && media.featuredImage === null &&
       <Placeholder></Placeholder>
     }
-    <h2 className={ classes.Title }>{ item.title }</h2>
-    <div className={ classes.Content } dangerouslySetInnerHTML={ createMarkup(item.content) }></div>
+    <h2 className={ classes.Title }>{ text.title }</h2>
+    <div className={ classes.Content } dangerouslySetInnerHTML={ createMarkup(text.content) }></div>
   </li>
 }
 

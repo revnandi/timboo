@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
 import classes from '../scss/AccordionItem.module.scss';
+import Image from './Image';
 import { addZeroToSingleDigits, createMarkup } from '../Helpers';
-
-type AccordionItemProps = {
-  title: string,
-  content: string,
-  activeIndex: number,
-  index: number,
-  handleClick: (index: number) => void
-}
+import { AccordionItemProps } from './Accordion';
 
 // let isActive: boolean = true;
 
@@ -18,7 +12,7 @@ type AccordionItemProps = {
 //   console.log(isActive);
 // }
 
-const AccordionItem = ({ title, content, activeIndex, handleClick, index }: AccordionItemProps) => {
+const AccordionItem = ({ title, content, featuredImage, activeIndex, handleClick, index }: AccordionItemProps) => {
 
   return <li
     className={ classes.Container }
@@ -29,10 +23,17 @@ const AccordionItem = ({ title, content, activeIndex, handleClick, index }: Acco
           { addZeroToSingleDigits(index) }
           </div>
         </div>
-        <div className={ [classes.TextContainer, (activeIndex === index) ? classes.OpenedTextContainer : ''].join(' ') }>
-          <div className={ [classes.Content, (activeIndex === index) ? classes.OpenedContent : ''].join(' ') } dangerouslySetInnerHTML={ createMarkup(content) }>
+        <div className={ [classes.ContentAndImageContainer, (activeIndex === index) ? classes.OpenedContentAndImageContainer : ''].join(' ') }>
+          <div className={ [classes.TextContainer, (activeIndex === index) ? classes.OpenedTextContainer : '' ].join(' ') }>
+            <div className={ [classes.Content, (activeIndex === index) ? classes.OpenedContent : ''].join(' ') } dangerouslySetInnerHTML={ createMarkup(content) }>
+            </div>
+            <h2 className={ classes.Title }>{ title }</h2>
           </div>
-          <h2 className={ classes.Title }>{ title }</h2>
+          <div className={ classes.ImageContainer }>
+            { featuredImage &&
+            <Image src={ featuredImage.medium.src ? featuredImage.medium.src : '' } lqip={ featuredImage.lqip ? featuredImage.lqip.src : '' } standing></Image>
+            }
+          </div>
         </div>
       </div>
     </li>;

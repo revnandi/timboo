@@ -19,11 +19,19 @@
   overflow: hidden;
 }
 
-.Swiper {
-
+.SubSwiper {
+  position: absolute!important;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .Slide {
+  position: relative;
   width: 100vw!important;
   height: 100vh!important;
+}
+
+.SubSlide {
+  
 }

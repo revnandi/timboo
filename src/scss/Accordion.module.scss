@@ -1,6 +1,10 @@
 @import './mixins.scss';
 @import './variables.scss';
 
+.Container {
+  display: block;
+}
+
 .List {
   display: flex;
   justify-content: flex-end;
@@ -11,10 +15,22 @@
   margin: 0;
   padding: 0;
   border-bottom: 1px solid $color-light;
+  border-top: 1px solid $color-light;
   @include breakpoint(small) {
     flex-direction: column;
   }
   @include breakpoint(medium) {
-    min-height: 25rem;
+    min-height: 100vh;
   }
+}
+
+.Title {
+  margin: 0;
+  padding: 0.25rem 0.5rem;
+  font-size: $text-md;
+  font-weight: 400;
+  color: $color-light;
+  text-align: left;
+  text-transform: uppercase;
+  border-top: 1px solid $color-light;
 }

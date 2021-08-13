@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classes from '../scss/Projects.module.scss';
 import ProjectsItem from './ProjectsItem';
-import SeoTitle from './SeoTitle';
 import Loader from './Loader';
 
 import { useQuery, gql } from "@apollo/client";
@@ -10,9 +9,11 @@ const GET_PROJECTS = gql`
   query GetProjects {
     projects(where: {orderby: {field: DATE, order: ASC}}) {
       edges {
-        node {
+        text: node {
           title
           content
+        }
+        media: node {
           featuredImage {
             lqip: node {
               src: sourceUrl(size: LQIP)
@@ -33,50 +34,68 @@ const GET_PROJECTS = gql`
   }
 `;
 
-interface ProjectsData {
-  title: string,
-  content: string,
-  image: {
-    src?: string,
-    lqip?: string,
-    alt?: string
-  },
-  gallery: object[]
+export interface ProjectItemProps {
+  text: ProjectText,
+  media: ProjectMedia
 }
 
+interface ProjectText {
+  title: string,
+  content: string,
+}
+
+interface ProjectMedia {
+  featuredImage?: {
+    lqip: {
+      src: string
+    }
+    medium: {
+      src: string
+    }
+    alt: string
+  },
+  gallery: ProjectGalleryItems
+}
+
+interface ProjectGalleryItems {
+  items: ProjectGalleryItem[] | null
+}
+
+interface ProjectGalleryItem {
+  lqip: string,
+  srcSet: string
+}
+
+
 const Projects = () => {
+
+  const [errorMessage, setErrorMessage] = useState<string>('')
 
   const { loading, error, data } = useQuery(GET_PROJECTS);
 
   if (loading) return <Loader/>;
-  if (error) return <p>Error :(</p>;
 
-  // console.log(data.projects.edges);
+  if (error) {
+    setErrorMessage('Error while loading data');
+  };
 
-  const formattedResponse = data.projects.edges.map((item : any) => {
-    return {
-      title: item.node.title,
-      content: item.node.content,
-      image: {
-        src: item.node.featuredImage && item.node.featuredImage.medium ? item.node.featuredImage.medium.src : '',
-        lqip: item.node.featuredImage && item.node.featuredImage.lqip ? item.node.featuredImage.lqip.src : '',
-        alt: 'image placeholder'
-      },
-      gallery: item.node.gallery.items
-    }
-  });
+  const projectsData = data.projects.edges;
+  console.log(projectsData);
 
-  // console.log(formattedResponse);
-
-  const projectItems = formattedResponse.map((item : ProjectsData, index : number) => {
-    return <ProjectsItem item={ item } index={ index } key={ index }></ProjectsItem>
+  const projectItems = projectsData.map(({ text, media }: ProjectItemProps, index: number) => {
+    return <ProjectsItem text={ text } media={ media } key={ index }></ProjectsItem>
   });
 
   return <React.Fragment>
     <h1 className={ classes.Title }>Projects</h1>
-    <ul className={ classes.Container } id='timboo_projects'>
-    { projectItems }
-    </ul>
+    { errorMessage === '' &&
+      <ul className={ classes.Container } id='timboo_projects'>
+      { projectItems }
+      </ul>
+    }
+    { errorMessage !== '' &&
+      <div>{ errorMessage }</div>
+    }
   </React.Fragment>
 };
 
