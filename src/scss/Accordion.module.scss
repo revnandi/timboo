@@ -2,16 +2,18 @@
 @import './variables.scss';
 
 .Container {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .List {
   display: flex;
   justify-content: flex-end;
   align-items: baseline;
+  flex: 1;
   list-style: none;
   width: 100%;
-  min-height: 100vh;
   margin: 0;
   padding: 0;
   border-bottom: 1px solid $color-light;
@@ -20,7 +22,6 @@
     flex-direction: column;
   }
   @include breakpoint(medium) {
-    min-height: 100vh;
   }
 }
 

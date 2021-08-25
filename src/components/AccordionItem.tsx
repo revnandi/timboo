@@ -24,16 +24,16 @@ const AccordionItem = ({ title, content, featuredImage, activeIndex, handleClick
           </div>
         </div>
         <div className={ [classes.ContentAndImageContainer, (activeIndex === index) ? classes.OpenedContentAndImageContainer : ''].join(' ') }>
-          <div className={ [classes.TextContainer, (activeIndex === index) ? classes.OpenedTextContainer : '' ].join(' ') }>
+          <div className={ [classes.TextContainer, (activeIndex === index) ? classes.OpenedTextContainer : '', featuredImage === null ? classes.fullWidthTextContainer : ''].join(' ') }>
             <div className={ [classes.Content, (activeIndex === index) ? classes.OpenedContent : ''].join(' ') } dangerouslySetInnerHTML={ createMarkup(content) }>
             </div>
             <h2 className={ classes.Title }>{ title }</h2>
           </div>
-          <div className={ classes.ImageContainer }>
-            { featuredImage &&
-            <Image src={ featuredImage.medium.src ? featuredImage.medium.src : '' } lqip={ featuredImage.lqip ? featuredImage.lqip.src : '' } standing></Image>
-            }
-          </div>
+          { featuredImage &&
+            <div className={ [classes.ImageContainer, (activeIndex === index) ? classes.OpenedImageContainer : '' ].join(' ') }>
+              <Image src={ featuredImage.medium.src ? featuredImage.medium.src : '' } lqip={ featuredImage.lqip ? featuredImage.lqip.src : '' } standing></Image>
+            </div>
+          }
         </div>
       </div>
     </li>;

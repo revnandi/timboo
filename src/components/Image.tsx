@@ -14,14 +14,15 @@ type ImageProps = {
   fitted?: boolean,
   hero?: boolean,
   standing?: boolean,
-  srcSet?: string
+  srcSet?: string,
+  animated?: boolean
 }
 
-const Image = React.forwardRef<HTMLImageElement, ImageProps>(({ src, lqip, alt, width, height, squared, fitted, hero, standing, srcSet }, ref) => {
+const Image = React.forwardRef<HTMLImageElement, ImageProps>(({ src, lqip, alt, width, height, squared, fitted, hero, standing, animated, srcSet }, ref) => {
   return <div className={ [classes.Container, squared ? classes.SquareContainer : '', fitted ? classes.FittedContainer : '', hero ? classes.heroContainer : '', standing ? classes.StandingContainer : '' ].join(' ') }>
     <img
       ref={ref}
-      className={ [classes.Media, 'lazyload', 'blur-up', ((fitted || squared) ? classes.FittedImage : ''), hero ? classes.HeroImage : '', standing ? classes.StandingImage : '' ].join(' ') }
+      className={ [classes.Media, 'lazyload', 'blur-up', ((fitted || squared) ? classes.FittedImage : ''), hero ? classes.HeroImage : '', standing ? classes.StandingImage : '', animated ? classes.AnimatedImage : '' ].join(' ') }
       src={ lqip }
       data-src={ src }
       data-srcset={ srcSet }

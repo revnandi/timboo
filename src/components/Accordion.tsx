@@ -52,7 +52,7 @@ const Accordion : React.FC = () => {
   if (error) return <p>Error :(</p>;
 
   const accordionData = data.services.nodes;
-  console.log(accordionData);
+  // console.log(accordionData);
 
   const handleClick = (index : number) : void => {
     setSelectedIndex(index);
@@ -63,7 +63,7 @@ const Accordion : React.FC = () => {
     return <AccordionItem id={ id } title={ title } content={ content } featuredImage={ featuredImage } index={ index + 1 } key={ id } activeIndex={ selectedIndex } handleClick={ handleClick }/>
   })
 
-  return <div className={ classes.Container }>
+  return <div className={ classes.Container } id='timboo_services'>
     <h1 className={ classes.Title }>Services</h1>
     <ul className={ classes.List }>
       { accordionItems }

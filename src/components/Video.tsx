@@ -1,16 +1,17 @@
 import React, { useRef, useState, useEffect } from 'react';
 import classes from '../scss/Video.module.scss';
-import ReactPlayer from 'react-player'
-import { setInterval } from 'timers';
+// import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player/lazy';
 
 type Props = {
   index: number,
   src: string,
-  passedEvent: (index : number, player : any) => void,
+  passedReadyEvent: (currentIndex: number, index: number, player: unknown) => void,
+  passedEndedEvent: (index: number, player: any) => void,
   currentIndex: number
 }
 
-const Video = ({ index, src, passedEvent, currentIndex }: Props) => {
+const Video = ({ index, src, passedReadyEvent, passedEndedEvent, currentIndex }: Props) => {
 
   const [currentTime, setCurrentTime] = useState(0);
 
@@ -31,7 +32,7 @@ const Video = ({ index, src, passedEvent, currentIndex }: Props) => {
     // console.log(`${src} has a duration of ${playerRef.current.getDuration()}`);
     // playerRef.current.seekTo(0);
     // playerRef.current.seekTo(0);
-    passedEvent(index, playerRef.current);
+    passedEndedEvent(index, playerRef.current);
     // console.log(`${src} has been played up to ${playerRef.current.getCurrentTime()}`);
   };
 
@@ -45,14 +46,16 @@ const Video = ({ index, src, passedEvent, currentIndex }: Props) => {
     ref={ playerRef }
     className={ classes.Container }
     url={ src }
-    playing={ true }
+    // playing={ true }
     // loop={ true }
     width='100%'
     height='100%'
     muted={true}
-    // onReady={
-    //   () => {initTimeSignatureThick()}
-    // }
+    onReady={
+      () => {
+        passedReadyEvent(currentIndex, index, playerRef.current);
+      }
+    }
     onEnded={ () => {
       handleEnded();
       // console.log(`${src} video ended`);

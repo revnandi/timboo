@@ -13,12 +13,12 @@ const Navigation = () => {
 
   const navigationData = [
     {
-      title: 'About & services',
+      title: 'About & projects',
       link: 'about'
     },
     {
-      title: 'Projects',
-      link: 'projects'
+      title: 'Services',
+      link: 'services'
     },
     {
       title: 'Team',

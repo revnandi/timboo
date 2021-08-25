@@ -1,10 +1,11 @@
 @import './variables.scss';
 
 .Container {
-  position: absolute;
+  // position: absolute;
   top: 50%;
   left: 50%;
   transform: translateY(-50%);
+  min-height: 10rem;
 }
 
 .Inner {

@@ -80,7 +80,7 @@ const Projects = () => {
   };
 
   const projectsData = data.projects.edges;
-  console.log(projectsData);
+  // console.log(projectsData);
 
   const projectItems = projectsData.map(({ text, media }: ProjectItemProps, index: number) => {
     return <ProjectsItem text={ text } media={ media } key={ index }></ProjectsItem>

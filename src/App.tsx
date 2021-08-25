@@ -5,7 +5,7 @@ import About from './components/About';
 import Accordion from './components/Accordion';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import Hero from './components/Hero';
+import Hero from './components/Hero/Hero';
 import Logo from './components/Logo';
 import Navigation from './components/Navigation';
 import Projects from './components/Projects';
