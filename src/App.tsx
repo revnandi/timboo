@@ -8,7 +8,7 @@ import Header from './components/Header';
 import Hero from './components/Hero/Hero';
 import Logo from './components/Logo';
 import Navigation from './components/Navigation';
-import Projects from './components/Projects';
+import Projects from './components/Projects/Projects';
 import Section from './components/Section';
 import Staff from './components/Staff';
 

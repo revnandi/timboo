@@ -1,38 +1,9 @@
 import React, { useState } from 'react';
-import classes from '../scss/Projects.module.scss';
-import ProjectsItem from './ProjectsItem';
-import Loader from './Loader';
-
-import { useQuery, gql } from "@apollo/client";
-
-const GET_PROJECTS = gql`
-  query GetProjects {
-    projects(where: {orderby: {field: DATE, order: ASC}}) {
-      edges {
-        text: node {
-          title
-          content
-        }
-        media: node {
-          featuredImage {
-            lqip: node {
-              src: sourceUrl(size: LQIP)
-            }
-            medium: node {
-              src: sourceUrl(size: MEDIUM_LARGE)
-            }
-          }
-          gallery: acf {
-            items: gallery {
-              lqip: sourceUrl(size: LQIP)
-              srcSet(size: MEDIUM)
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+import classes from '../../scss/Projects.module.scss';
+import ProjectsItem from '../ProjectsItem';
+import Loader from '../Loader';
+import { useQuery } from "@apollo/client";
+import { GET_PROJECTS } from './query';
 
 export interface ProjectItemProps {
   text: ProjectText,

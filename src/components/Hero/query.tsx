@@ -4,9 +4,7 @@ export const GET_CAROUSEL = gql`
   query GetCarousel {
     themeGeneralSettings {
       hero {
-        fieldGroupName
         carousel {
-          fieldGroupName
           item {
             gallery {
               id
@@ -14,6 +12,7 @@ export const GET_CAROUSEL = gql`
               mediaItemUrl
               lqip: sourceUrl(size: LQIP)
               src: sourceUrl(size: LARGE)
+              customLength
             }
             title
             content

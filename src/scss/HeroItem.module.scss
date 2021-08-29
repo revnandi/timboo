@@ -1,8 +1,10 @@
 @import './mixins.scss';
 @import './variables.scss';
 .Container {
+  position: absolute;
   display: flex;
   height: 100%;
+  z-index: 1;
   @include breakpoint(small) {
     width: calc(100% - 3.5rem);
   }

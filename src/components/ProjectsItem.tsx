@@ -4,7 +4,7 @@ import Image from '../components/Image';
 import Placeholder from './Placeholder';
 import ProjectsSwiper from './ProjectsSwiper';
 
-import { ProjectItemProps } from './Projects';
+import { ProjectItemProps } from './Projects/Projects';
 
 import { createMarkup } from '../Helpers';
 
