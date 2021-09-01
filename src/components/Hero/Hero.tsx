@@ -42,7 +42,6 @@ const Hero = () => {
   const [delayedActiveIndex, setDelayedActiveIndex] = useState(0);
 
   const initSwiper = () => {
-    // console.log(swiperRef.current);
     setCurrentActiveIndex(swiperRef.current.activeIndex);
   };
 
@@ -118,20 +117,14 @@ const Hero = () => {
       fadeEffect= {{
         crossFade: true
       }}
-      // onSlideChangeTransitionStart={() => console.log('onSlideChangeTransitionStart') }
       onSlideChangeTransitionEnd={() => {
-        console.log('onSlideChangeTransitionEnd');
-        // const lastIndex = currentActiveIndex - 1;
         setDelayedActiveIndex(currentActiveIndex);
       } }
       onSlideChange={() => {
         setCurrentActiveIndex(swiperRef.current.activeIndex);
-        // console.log('slide changed');
-        console.log()
       }}
       onSwiper={(swiper) => {
         swiperRef.current = swiper;
-        // setMainSwiperIndex(swiper.activeIndex);
         initSwiper();
       }}
     >
