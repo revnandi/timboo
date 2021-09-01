@@ -11,11 +11,10 @@ export const GET_CAROUSEL = gql`
               mimeType
               mediaItemUrl
               lqip: sourceUrl(size: LQIP)
-              src: sourceUrl(size: LARGE)
+              src: sourceUrl(size: MEDIUM_LARGE)
               customLength
             }
             title
-            content
           }
         }
       }

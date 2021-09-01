@@ -4,11 +4,10 @@ import { addZeroToSingleDigits, createMarkup } from '../Helpers';
 
 type Props = {
   index: number,
-  title: string,
-  content: string,
+  title: string
 }
 
-function HeroItem({ index, title, content }: Props) {
+function HeroItem({ index, title }: Props) {
   return <div className={ classes.Container }>
     <div className={ classes.IdContainer } >
       <div className={ classes.Id }>{ addZeroToSingleDigits(index) }</div>

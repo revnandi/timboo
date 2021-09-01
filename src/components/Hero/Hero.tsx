@@ -15,7 +15,6 @@ import 'swiper/components/effect-fade/effect-fade.scss';
 SwiperCore.use([EffectFade, Autoplay]);
 
 interface SliderItem {
-  content: string,
   gallery: SliderGalleryItem[],
   slideIndex: number,
   title: string
@@ -33,7 +32,6 @@ interface SliderGalleryItem {
 
 interface Category {
   title: string,
-  content: string,
   slideIndex: number,
 }
 
@@ -41,6 +39,7 @@ const Hero = () => {
 
   const swiperRef: any = useRef(null);
   const [currentActiveIndex, setCurrentActiveIndex] = useState(0);
+  const [delayedActiveIndex, setDelayedActiveIndex] = useState(0);
 
   const initSwiper = () => {
     // console.log(swiperRef.current);
@@ -49,7 +48,7 @@ const Hero = () => {
 
   const { loading, error, data } = useQuery(GET_CAROUSEL);
 
-  if (loading) return <Loader/>;
+  if (loading) return <Loader centered/>;
   if (error) return <p>Error :(</p>;
 
 
@@ -67,12 +66,11 @@ const Hero = () => {
     };
   });
 
-  console.log(formattedResponse);
+  // console.log(formattedResponse);
 
   const categories: Array<Category> = formattedResponse.map((item: Category) => {
     return {
       title: item.title,
-      content: item.content,
       slideIndex: item.slideIndex
     }
   });
@@ -89,24 +87,20 @@ const Hero = () => {
     player.seekTo(0);
   };
 
-  const handleReadyEvent = (currentIndex : number, index: number, player: any): void => {
-
-  };
-
   const slides = mergedSlides.map((item: SliderGalleryItem, index: number) => {
 
-    return <SwiperSlide className={ classes.Slide } key={ index } data-swiper-autoplay={ item.customLength ? (item.customLength - 500 ) : '' }>
+    return <SwiperSlide className={ classes.Slide } key={ index } data-swiper-autoplay={ item.customLength ? (item.customLength - 800 ) : '' }>
       {({ isActive }) => (
         (item.mimeType === 'image/jpeg' || item.mimeType === 'image/png' || item.mimeType === 'image/jpg') ? 
         <Fragment>
-          <HeroItem title={ categories[item.slideId].title } content={ categories[item.slideId].content } index={ item.slideId + 1 }/>
-          <Image animated={ isActive } src={ item.mediaItemUrl } lqip={ item.lqip } alt='' hero/>
+          <HeroItem title={ categories[item.slideId].title } index={ item.slideId + 1 }/>
+          <Image animated={ isActive } src={ item.mediaItemUrl } lqip={ item.lqip } alt='' hero ownIndex={ index } currentSlideIndex={ currentActiveIndex } delayedSlideIndex={ delayedActiveIndex } />
         </Fragment>
         : 
         (item.mimeType === 'video/mp4') ?
         <Fragment>
-          <HeroItem title={ categories[item.slideId].title } content={ categories[item.slideId].content } index={ item.slideId + 1 }/>
-          <Video src={ item.mediaItemUrl } passedEndedEvent={ handleEndedEvent } passedReadyEvent={ handleReadyEvent } currentIndex={ currentActiveIndex } index={ index }></Video>
+          <HeroItem title={ categories[item.slideId].title } index={ item.slideId + 1 }/>
+          <Video src={ item.mediaItemUrl } passedEndedEvent={ handleEndedEvent } currentIndex={ currentActiveIndex } delayedIndex={ delayedActiveIndex } index={ index } ></Video>
         </Fragment>
         : ''
       )}
@@ -125,9 +119,15 @@ const Hero = () => {
         crossFade: true
       }}
       // onSlideChangeTransitionStart={() => console.log('onSlideChangeTransitionStart') }
+      onSlideChangeTransitionEnd={() => {
+        console.log('onSlideChangeTransitionEnd');
+        // const lastIndex = currentActiveIndex - 1;
+        setDelayedActiveIndex(currentActiveIndex);
+      } }
       onSlideChange={() => {
-        // console.log('slide changed');
         setCurrentActiveIndex(swiperRef.current.activeIndex);
+        // console.log('slide changed');
+        console.log()
       }}
       onSwiper={(swiper) => {
         swiperRef.current = swiper;

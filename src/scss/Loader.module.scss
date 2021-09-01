@@ -1,4 +1,5 @@
 @import './variables.scss';
+@import './mixins.scss';
 
 .Container {
   // position: absolute;
@@ -6,6 +7,15 @@
   left: 50%;
   transform: translateY(-50%);
   min-height: 10rem;
+}
+
+.CenteredContainer {
+  transform: translateY(0);
+  min-height: 15rem;
+  @include breakpoint(medium) {
+    width: calc(100% - 12.2rem);
+    padding-left: 3rem;
+  }
 }
 
 .Inner {

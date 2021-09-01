@@ -10,6 +10,27 @@
       border-right: none;
     }
   }
+  &:nth-child(2) {
+    & > div > div > div > div > div {
+      @include breakpoint(medium) {
+        padding-bottom: calc(68% - 1px);
+      }
+    }
+  }
+  &:nth-child(6) {
+    & > div > div > div > div > div {
+      @include breakpoint(medium) {
+        padding-bottom: calc(68% - 1px);
+      }
+    }
+  }
+  &:nth-child(10) {
+    & > div > div > div > div > div {
+      @include breakpoint(medium) {
+        padding-bottom: calc(68% - 1px);
+      }
+    }
+  }
   // &:nth-child(even) {
   //   & > div:first-child {
   //     padding-bottom: calc(68% - 1px);
