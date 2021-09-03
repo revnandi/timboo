@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import About from './components/About';
 import Accordion from './components/Accordion';
 import Footer from './components/Footer';
@@ -10,7 +10,7 @@ import Logo from './components/Logo';
 import Navigation from './components/Navigation';
 import Projects from './components/Projects/Projects';
 import Section from './components/Section';
-import Staff from './components/Staff';
+import Staff from './components/Staff/Staff';
 
 const client = new ApolloClient({
   uri: 'https://admin.timboo.org/graphql',
@@ -18,6 +18,7 @@ const client = new ApolloClient({
 });
 
 function App() {
+
   return (
     <ApolloProvider client={client}>
       <div className="App">

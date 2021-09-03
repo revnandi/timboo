@@ -50,7 +50,6 @@ const Hero = () => {
   if (loading) return <Loader centered/>;
   if (error) return <p>Error :(</p>;
 
-
   const formattedResponse: Array<SliderItem> = data.themeGeneralSettings.hero.carousel.item.map((item : SliderItem, index: number) => {
 
     return {

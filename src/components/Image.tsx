@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { forwardRef } from 'react';
 import classes from '../scss/Image.module.scss';
 // eslint-disable-next-line
 import lazySizes from 'lazysizes';
@@ -22,7 +22,7 @@ type Props = {
   passedChangeEndedEvent?: (this: any, slideIndex: number, ownIndex: number) => void,
 }
 
-const Image = React.forwardRef<HTMLImageElement, Props>(({ src, lqip, alt, width, height, squared, fitted, hero, standing, animated, srcSet, ownIndex, currentSlideIndex, delayedSlideIndex, passedChangeEndedEvent }, ref) => {
+const Image = forwardRef<HTMLImageElement, Props>(({ src, lqip, alt, width, height, squared, fitted, hero, standing, animated, srcSet, ownIndex, currentSlideIndex, delayedSlideIndex, passedChangeEndedEvent }, ref) => {
 
   return <div className={ [classes.Container, squared ? classes.SquareContainer : '', fitted ? classes.FittedContainer : '', hero ? classes.heroContainer : '', standing ? classes.StandingContainer : '' ].join(' ') }>
     <img

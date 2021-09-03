@@ -13,13 +13,13 @@ type Props = {
 
 const Video = ({ index, src, passedEndedEvent, currentIndex, delayedIndex }: Props) => {
 
-  const playerRef : any = useRef(null);
+  const playerRef: any = useRef(null);
 
-  const handleEnded = () : void => {
+  const handleEnded = (): void => {
     passedEndedEvent(index, playerRef.current);
   };
 
-  const handleReset = () : void => {
+  const handleReset = (): void => {
     playerRef.current.seekTo(0);
   }
 
