@@ -27,7 +27,8 @@ interface SliderGalleryItem {
   mimeType: string,
   slideId: number,
   src: string,
-  customLength: null | number
+  customLength: null | number,
+  firstItem: boolean
 }
 
 interface Category {
@@ -40,25 +41,32 @@ const Hero = () => {
   const swiperRef: any = useRef(null);
   const [currentActiveIndex, setCurrentActiveIndex] = useState(0);
   const [delayedActiveIndex, setDelayedActiveIndex] = useState(0);
+  const [currentSlideItem, setCurrentSlideItem] = useState<any>({});
+  const [currentCategory, setCurrentCategory] = useState<any>({});
 
   const initSwiper = () => {
+    console.log(`activeIndex: ${swiperRef.current.activeIndex}`)
     setCurrentActiveIndex(swiperRef.current.activeIndex);
+    console.log()
+    setCurrentSlideItem(mergedSlides[0]);
+    setCurrentCategory(categories[0]);
   };
 
   const { loading, error, data } = useQuery(GET_CAROUSEL);
 
   if (loading) return <Loader centered/>;
-  if (error) return <p>Error :(</p>;
+  if (error) return <p>Error loading data(</p>;
 
   const formattedResponse: Array<SliderItem> = data.themeGeneralSettings.hero.carousel.item.map((item : SliderItem, index: number) => {
 
     return {
       ...item,
       slideIndex: index,
-      gallery: item.gallery.map((item: SliderGalleryItem) => {
+      gallery: item.gallery.map((item: SliderGalleryItem, subIndex: number) => {
         return {
           ...item,
-          slideId: index
+          slideId: index,
+          firstItem: (subIndex === 0) ? true : false
         }
       }),
     };
@@ -73,6 +81,8 @@ const Hero = () => {
     }
   });
 
+  // console.log(categories);
+
   const galleries: Array<any> = formattedResponse.map((item : SliderItem) => {
 
     return item.gallery;
@@ -80,7 +90,8 @@ const Hero = () => {
 
   const mergedSlides = [].concat.apply([], galleries)
 
-  
+  console.log(mergedSlides);
+
   const handleEndedEvent = (index: number, player: any): void => {
     player.seekTo(0);
   };
@@ -91,13 +102,13 @@ const Hero = () => {
       {({ isActive }) => (
         (item.mimeType === 'image/jpeg' || item.mimeType === 'image/png' || item.mimeType === 'image/jpg') ? 
         <Fragment>
-          <HeroItem title={ categories[item.slideId].title } index={ item.slideId + 1 }/>
+          {/* <HeroItem title={ categories[item.slideId].title } index={ item.slideId + 1 }/> */}
           <Image animated={ isActive } src={ item.mediaItemUrl } lqip={ item.lqip } alt='' hero ownIndex={ index } currentSlideIndex={ currentActiveIndex } delayedSlideIndex={ delayedActiveIndex } />
         </Fragment>
         : 
         (item.mimeType === 'video/mp4') ?
         <Fragment>
-          <HeroItem title={ categories[item.slideId].title } index={ item.slideId + 1 }/>
+          {/* <HeroItem title={ categories[item.slideId].title } index={ item.slideId + 1 }/> */}
           <Video src={ item.mediaItemUrl } passedEndedEvent={ handleEndedEvent } currentIndex={ currentActiveIndex } delayedIndex={ delayedActiveIndex } index={ index } ></Video>
         </Fragment>
         : ''
@@ -110,7 +121,7 @@ const Hero = () => {
     <Swiper
       className={ classes.Swiper }
       slidesPerView={1}
-      allowTouchMove={ false }
+      // allowTouchMove={ false }
       effect='fade'
       autoplay={ true }
       fadeEffect= {{
@@ -121,6 +132,14 @@ const Hero = () => {
       } }
       onSlideChange={() => {
         setCurrentActiveIndex(swiperRef.current.activeIndex);
+        setCurrentSlideItem(mergedSlides[swiperRef.current.activeIndex]);
+        let nextSlide: any;
+        if(swiperRef.current.activeIndex <= swiperRef.current.slides.length - 1) {
+          nextSlide = mergedSlides[swiperRef.current.activeIndex];
+        } else {
+          nextSlide = mergedSlides[0];
+        }
+        setCurrentCategory(categories[nextSlide.slideId]);
       }}
       onSwiper={(swiper) => {
         swiperRef.current = swiper;
@@ -128,6 +147,7 @@ const Hero = () => {
       }}
     >
       { slides }
+      <HeroItem title={ currentCategory?.title } index={ currentCategory?.slideIndex + 1 } isAnimated={ currentSlideItem.firstItem }/>
     </Swiper>
   </div>
 }
