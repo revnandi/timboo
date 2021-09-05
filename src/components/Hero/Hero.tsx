@@ -121,7 +121,7 @@ const Hero = () => {
     <Swiper
       className={ classes.Swiper }
       slidesPerView={1}
-      // allowTouchMove={ false }
+      allowTouchMove={ false }
       effect='fade'
       autoplay={ true }
       fadeEffect= {{
