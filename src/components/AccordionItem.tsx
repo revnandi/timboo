@@ -19,6 +19,7 @@ const AccordionItem = ({ title, content, featuredImage, activeIndex, handleClick
     onClick={ () => handleClick(index) }>
       <div className={ classes.Inner }>
         <div className={ [classes.NumberContainer, (activeIndex === index) ? classes.OpenedNumberContainer : ''].join(' ') }>
+        <h2 className={ [classes.Title, classes.VerticalTitle].join(' ') }>{ title }</h2>
           <div className={ classes.Number }>
           { addZeroToSingleDigits(index) }
           </div>
