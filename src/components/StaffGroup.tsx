@@ -27,7 +27,6 @@ function StaffGroup({ title, staff }: StaffGroupData) {
   });
 
   return <div className={ classes.Body }>
-    <h2 className={ classes.Title }>{ title }</h2>
     <ul className={ classes.List }>
       { staffMembersData }
     </ul>

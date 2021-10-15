@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from '../scss/HeroItem.module.scss';
-import { addZeroToSingleDigits, createMarkup } from '../Helpers';
+import { addZeroToSingleDigits } from '../Helpers';
 
 type Props = {
   index: number,

@@ -10,7 +10,7 @@ import { createMarkup } from '../Helpers';
 
 const ProjectsItem = ({ text, media }: ProjectItemProps, index: number) => {
 
-  // console.log(media)
+  console.log(media.featuredImage?.lqip.src)
 
   return <li className={ classes.Container } key={ index }>
     { media.gallery && media.gallery.items !== null && 

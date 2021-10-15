@@ -3,6 +3,7 @@ import classes from '../scss/Image.module.scss';
 // eslint-disable-next-line
 import lazySizes from 'lazysizes';
 import 'lazysizes/plugins/attrchange/ls.attrchange';
+import { useWebPSupportCheck } from 'react-use-webp-support-check';
 
 type Props = {
   src?: string
@@ -24,18 +25,32 @@ type Props = {
 
 const Image = forwardRef<HTMLImageElement, Props>(({ src, lqip, alt, width, height, squared, fitted, hero, standing, animated, srcSet, ownIndex, currentSlideIndex, delayedSlideIndex, passedChangeEndedEvent }, ref) => {
 
-  return <div className={ [classes.Container, squared ? classes.SquareContainer : '', fitted ? classes.FittedContainer : '', hero ? classes.heroContainer : '', standing ? classes.StandingContainer : '' ].join(' ') }>
+  const supportsWebP = useWebPSupportCheck();
+
+  if(src) {
+    return <div className={ [classes.Container, squared ? classes.SquareContainer : '', fitted ? classes.FittedContainer : '', hero ? classes.heroContainer : '', standing ? classes.StandingContainer : '' ].join(' ') }>
     <img
-      ref={ref}
+      ref={ ref }
       className={ [classes.Media, 'lazyload', 'blur-up', ((fitted || squared) ? classes.FittedImage : ''), hero ? classes.HeroImage : '', standing ? classes.StandingImage : '', (hero &&(currentSlideIndex === ownIndex || delayedSlideIndex === ownIndex)) ? classes.AnimatedImage : '' ].join(' ') }
-      src={ lqip }
-      data-src={ src }
-      data-srcset={ srcSet }
+      src={ supportsWebP ? lqip?.replace('/wp-content/uploads/', '/wp-content/uploads-webpc/uploads/') + '.webp' : lqip }
+      data-src={ supportsWebP ? src?.replace('/wp-content/uploads/', '/wp-content/uploads-webpc/uploads/') + '.webp' : src }
       alt={ alt ? alt : '' }
       width={ width }
       height={ height }
     />
   </div>
+  } else {
+    return <div className={ [classes.Container, squared ? classes.SquareContainer : '', fitted ? classes.FittedContainer : '', hero ? classes.heroContainer : '', standing ? classes.StandingContainer : '' ].join(' ') }>
+      <img
+        ref={ ref }
+        className={ [classes.Media, 'lazyload', 'blur-up', ((fitted || squared) ? classes.FittedImage : ''), hero ? classes.HeroImage : '', standing ? classes.StandingImage : '', (hero &&(currentSlideIndex === ownIndex || delayedSlideIndex === ownIndex)) ? classes.AnimatedImage : '' ].join(' ') }
+        data-srcset={ supportsWebP ? srcSet?.replaceAll('/wp-content/uploads/', '/wp-content/uploads-webpc/uploads/').replaceAll('.jpg ', '.jpg.webp ').replaceAll('.jpeg ', '.jpeg.webp ').replaceAll('.png ', '.png.webp ') : srcSet }
+        alt={ alt ? alt : '' }
+        width={ width }
+        height={ height }
+      />
+    </div>
+  }
 });
 
 Image.defaultProps = {

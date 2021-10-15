@@ -1,16 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classes from '../scss/AccordionItem.module.scss';
 import Image from './Image';
 import { addZeroToSingleDigits, createMarkup } from '../Helpers';
 import { AccordionItemProps } from './Accordion';
-
-// let isActive: boolean = true;
-
-// function onChange(e: any) {
-//   isActive = true;
-//   console.log(e.target.checked)
-//   console.log(isActive);
-// }
 
 const AccordionItem = ({ title, content, featuredImage, activeIndex, handleClick, index }: AccordionItemProps) => {
 
@@ -32,7 +24,13 @@ const AccordionItem = ({ title, content, featuredImage, activeIndex, handleClick
           </div>
           { featuredImage &&
             <div className={ [classes.ImageContainer, (activeIndex === index) ? classes.OpenedImageContainer : '' ].join(' ') }>
-              <Image src={ featuredImage.medium.src ? featuredImage.medium.src : '' } lqip={ featuredImage.lqip ? featuredImage.lqip.src : '' } standing></Image>
+              <Image
+                width={ featuredImage.lqip.mediaDetails.width.toString() }
+                height={ featuredImage.lqip.mediaDetails.height.toString() }
+                src={ featuredImage.medium.src ? featuredImage.medium.src : '' }
+                lqip={ featuredImage.lqip ? featuredImage.lqip.src : '' }
+                standing
+              />
             </div>
           }
         </div>

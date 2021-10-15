@@ -18,6 +18,18 @@
   }
 }
 
+.HeroContainer {
+  z-index: -1;
+  position: absolute;
+  left: unset;
+  transform: translateY(-50%);
+  min-height: 15rem;
+  @include breakpoint(medium) {
+    width: calc(100% - 12.2rem);
+    padding-left: 3rem;
+  }
+}
+
 .Inner {
   color: $color-light;
   background: $color-light;

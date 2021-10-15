@@ -54,11 +54,31 @@
   filter: blur(0);
 }
 
+header .swiper-slide-active > div {
+  animation: zoomtruck;
+  animation-duration: 20s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite
+}
+
+@keyframes zoomtruck {
+  0% {
+    transform: scale(1) translateX(0%);
+  }
+  50% {
+    transform: scale(1.1) translateX(3%);
+  }
+  100% {
+    transform: scale(1.2) translateX(4%);
+  }
+}
+
 /* questrial-regular - latin */
 @font-face {
   font-family: 'Questrial';
   font-style: normal;
   font-weight: 400;
+  font-display: swap;
   src: url('./fonts/questrial-v13-latin-regular.eot'); /* IE9 Compat Modes */
   src: local(''),
        url('./fonts/questrial-v13-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import classes from '../scss/Navigation.module.scss';
 import NavigationItem from './NavigationItem';
 import NavigationButton from './NavigationButton';
-import { link } from 'fs';
 
 interface navigationItemProps {
   title: string,

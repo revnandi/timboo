@@ -1,4 +1,4 @@
-import { useQuery, gql } from "@apollo/client";
+import { gql } from "@apollo/client";
 
 export const GET_CAROUSEL = gql`
   query GetCarousel {
@@ -11,8 +11,12 @@ export const GET_CAROUSEL = gql`
               mimeType
               mediaItemUrl
               lqip: sourceUrl(size: LQIP)
-              src: sourceUrl(size: MEDIUM_LARGE)
-              customLength
+              src: sourceUrl(size: LARGE)
+              customLength,
+              mediaDetails {
+                height
+                width
+              }
             }
             title
           }

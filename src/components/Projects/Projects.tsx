@@ -57,8 +57,7 @@ const Projects = () => {
     return <ProjectsItem text={ text } media={ media } key={ index }></ProjectsItem>
   });
 
-  return <React.Fragment>
-    <h1 className={ classes.Title }>Projects</h1>
+  return <>
     { errorMessage === '' &&
       <ul className={ classes.Container } id='timboo_projects'>
       { projectItems }
@@ -67,7 +66,7 @@ const Projects = () => {
     { errorMessage !== '' &&
       <div>{ errorMessage }</div>
     }
-  </React.Fragment>
+  </>
 };
 
 export default Projects;

@@ -1,18 +1,22 @@
-import React, { useState, useRef, Fragment } from 'react';
+import React, {
+  useState,
+  useRef,
+} from 'react';
 import classes from '../../scss/Hero.module.scss';
 import HeroItem from '../HeroItem';
-import Image from '../Image';
 import Video from '../Video';
 import Loader from '../Loader';
-import SwiperCore, { EffectFade, Autoplay } from 'swiper';
+import SwiperCore, { EffectFade, Autoplay, Lazy } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useQuery } from "@apollo/client";
 import { GET_CAROUSEL } from './query';
+import { useWebPSupportCheck } from 'react-use-webp-support-check';
 
 import 'swiper/swiper.scss';
+import 'swiper/components/lazy/lazy.scss';
 import 'swiper/components/effect-fade/effect-fade.scss';
 
-SwiperCore.use([EffectFade, Autoplay]);
+SwiperCore.use([EffectFade, Autoplay, Lazy]);
 
 interface SliderItem {
   gallery: SliderGalleryItem[],
@@ -23,6 +27,10 @@ interface SliderItem {
 interface SliderGalleryItem {
   id: string,
   lqip: string,
+  mediaDetails: {
+    width: number,
+    height: number
+  },
   mediaItemUrl: string,
   mimeType: string,
   slideId: number,
@@ -38,6 +46,8 @@ interface Category {
 
 const Hero = () => {
 
+  const supportsWebP = useWebPSupportCheck();
+
   const swiperRef: any = useRef(null);
   const [currentActiveIndex, setCurrentActiveIndex] = useState(0);
   const [delayedActiveIndex, setDelayedActiveIndex] = useState(0);
@@ -45,9 +55,8 @@ const Hero = () => {
   const [currentCategory, setCurrentCategory] = useState<any>({});
 
   const initSwiper = () => {
-    console.log(`activeIndex: ${swiperRef.current.activeIndex}`)
+    // console.log(`activeIndex: ${swiperRef.current.activeIndex}`)
     setCurrentActiveIndex(swiperRef.current.activeIndex);
-    console.log()
     setCurrentSlideItem(mergedSlides[0]);
     setCurrentCategory(categories[0]);
   };
@@ -90,7 +99,7 @@ const Hero = () => {
 
   const mergedSlides = [].concat.apply([], galleries)
 
-  console.log(mergedSlides);
+  // console.log(mergedSlides);
 
   const handleEndedEvent = (index: number, player: any): void => {
     player.seekTo(0);
@@ -101,16 +110,25 @@ const Hero = () => {
     return <SwiperSlide className={ classes.Slide } key={ index } data-swiper-autoplay={ item.customLength ? (item.customLength - 800 ) : '' }>
       {({ isActive }) => (
         (item.mimeType === 'image/jpeg' || item.mimeType === 'image/png' || item.mimeType === 'image/jpg') ? 
-        <Fragment>
+        <div className={ classes.ImageContainer }>
           {/* <HeroItem title={ categories[item.slideId].title } index={ item.slideId + 1 }/> */}
-          <Image animated={ isActive } src={ item.mediaItemUrl } lqip={ item.lqip } alt='' hero ownIndex={ index } currentSlideIndex={ currentActiveIndex } delayedSlideIndex={ delayedActiveIndex } />
-        </Fragment>
+          {/* <Image width={ item.mediaDetails.width.toString() } height={ item.mediaDetails.height.toString() } animated={ isActive } src={ item.mediaItemUrl } lqip={ item.lqip } alt='' hero ownIndex={ index } currentSlideIndex={ currentActiveIndex } delayedSlideIndex={ delayedActiveIndex } /> */}
+          <img
+            data-src={ supportsWebP ? item.mediaItemUrl.replace('/wp-content/uploads/', '/wp-content/uploads-webpc/uploads/') + '.webp' : item.mediaItemUrl }
+            className={ ['swiper-lazy', classes.Image ].join(' ') }
+            width={ item.mediaDetails.width.toString() }
+            height={ item.mediaDetails.height.toString() }
+            alt=''
+          />
+          {/* <img className={ classes.Image } src={ item.lqip } alt=''/> */}
+          <Loader hero/>
+        </div>
         : 
         (item.mimeType === 'video/mp4') ?
-        <Fragment>
+        <>
           {/* <HeroItem title={ categories[item.slideId].title } index={ item.slideId + 1 }/> */}
           <Video src={ item.mediaItemUrl } passedEndedEvent={ handleEndedEvent } currentIndex={ currentActiveIndex } delayedIndex={ delayedActiveIndex } index={ index } ></Video>
-        </Fragment>
+        </>
         : ''
       )}
     </SwiperSlide>
@@ -124,6 +142,12 @@ const Hero = () => {
       allowTouchMove={ false }
       effect='fade'
       autoplay={ true }
+      preloadImages={ false }
+      watchSlidesProgress={ true }
+      lazy={{
+        loadPrevNext: true,
+        loadOnTransitionStart: true
+      }}
       fadeEffect= {{
         crossFade: true
       }}

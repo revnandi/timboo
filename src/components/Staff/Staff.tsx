@@ -1,7 +1,6 @@
 import React from 'react';
 import classes from '../../scss/Staff.module.scss';
 import StaffGroup from '../StaffGroup';
-import SeoTitle from '../SeoTitle';
 import Loader from '../Loader';
 import { useQuery } from "@apollo/client";
 import { GET_STAFF } from './query';
@@ -32,7 +31,7 @@ function Staff() {
   if (loading) return <Loader/>;
   if (error) return <p>Error while loading data</p>;
 
-  console.log(data.categories.items);
+  // console.log(data.categories.items);
 
   const staffGroupsData = data.categories.items.map((item : any) => {
     return {
@@ -48,9 +47,6 @@ function Staff() {
   });
 
   return <div className={ classes.Staff } id='timboo_staff'>
-    <SeoTitle>
-      <h1>The Team</h1>
-    </SeoTitle>
     { staffGroups }
   </div>
 }

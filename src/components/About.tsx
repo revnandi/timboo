@@ -1,6 +1,5 @@
 import React from 'react';
 import classes from '../scss/About.module.scss';
-import SeoTitle from './SeoTitle';
 import Loader from './Loader';
 import { createMarkup } from '../Helpers';
 
@@ -25,9 +24,6 @@ const About = () => {
   const content = data.pageBy.content;
 
   return <div className={ classes.Container } id='timboo_about'>
-    <SeoTitle>
-      <h1>About & Services</h1>
-    </SeoTitle>
     <div className={ classes.Inner } dangerouslySetInnerHTML={ createMarkup(content) }>
     </div>
   </div>

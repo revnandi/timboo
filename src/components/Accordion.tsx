@@ -15,9 +15,17 @@ const GET_SERVICES = gql`
         featuredImage {
           lqip: node {
             src: sourceUrl(size: LQIP)
+            mediaDetails {
+              width
+              height
+            }
           }
           medium: node {
-            src: sourceUrl(size: MEDIUM_LARGE)
+            src: sourceUrl(size: _2048X2048)
+            mediaDetails {
+              width
+              height
+            }
           }
         }
       }
@@ -33,9 +41,17 @@ export interface AccordionItemProps {
   featuredImage?: {
     lqip: {
       src: string
+      mediaDetails: {
+        width: number,
+        height: number
+      }
     }
     medium: {
       src: string
+      mediaDetails: {
+        width: number,
+        height: number
+      }
     }
   },
   index: number,
@@ -64,7 +80,6 @@ const Accordion : React.FC = () => {
   })
 
   return <div className={ classes.Container } id='timboo_services'>
-    <h1 className={ classes.Title }>Services</h1>
     <ul className={ classes.List }>
       { accordionItems }
     </ul>

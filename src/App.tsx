@@ -11,6 +11,7 @@ import Navigation from './components/Navigation';
 import Projects from './components/Projects/Projects';
 import Section from './components/Section';
 import Staff from './components/Staff/Staff';
+import TitleRow from './components/TitleRow';
 
 const client = new ApolloClient({
   uri: 'https://admin.timboo.org/graphql',
@@ -29,19 +30,23 @@ function App() {
         </Header>
         <main>
           <Section>
-            <About></About>
+            <TitleRow text="About"/>
+            <About/>
           </Section>
           <Section>
-            <Projects></Projects>
+          <TitleRow text="Projects"/>
+            <Projects/>
           </Section>
           <Section>
-            <Accordion></Accordion>
+            <TitleRow text="Services"/>
+            <Accordion/>
           </Section>
           <Section>
-            <Staff></Staff>
+            <TitleRow text="Team"/>
+            <Staff/>
           </Section>
           <Section>
-            <Footer></Footer>
+            <Footer/>
           </Section>
         </main>
       </div>
